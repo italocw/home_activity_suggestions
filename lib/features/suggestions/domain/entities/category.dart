@@ -64,3 +64,10 @@ Category onlineChannels = Category(
   icon: Icons.language,
   color: '#e91e63',
 );
+
+Category others = Category(
+  id: '8',
+  name: 'Outras',
+  icon: Icons.more_horiz,
+  color: '#CCCCCC',
+);
