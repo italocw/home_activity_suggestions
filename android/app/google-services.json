@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770465677197",
+    "project_id": "home-activity-suggestions",
+    "storage_bucket": "home-activity-suggestions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770465677197:android:b144bca9aeedb4e4c207c4",
+        "android_client_info": {
+          "package_name": "com.example.home_activity_sugestions"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcdi-5D1nDG0E6ZTQ9Ma53BZX69d7rvxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
