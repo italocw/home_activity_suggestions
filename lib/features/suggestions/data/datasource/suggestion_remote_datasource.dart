@@ -7,5 +7,9 @@ class SuggestionRemotelDataSource {
     throw Exception();
   }
 
+  updateSuggestion(Suggestion suggestion) {
+    throw Exception();
+  }
+
   deleteSuggestion(String id) {}
 }
