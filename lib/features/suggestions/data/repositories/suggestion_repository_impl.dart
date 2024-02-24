@@ -4,7 +4,7 @@ import 'package:home_activity_sugestions/features/suggestions/domain/entities/su
 import 'package:home_activity_sugestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class SuggestionRepositoryImpl implements SuggestionRepository {
-  final SuggestionRemotelDataSource remoteDataSource;
+  final SuggestionRemoteDataSource remoteDataSource;
 
   SuggestionRepositoryImpl({required this.remoteDataSource});
 

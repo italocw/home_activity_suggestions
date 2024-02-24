@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 
-class SuggestionRemotelDataSource {
+class SuggestionRemoteDataSource {
+  final FirebaseFirestore firebaseFirestore;
+
+  SuggestionRemoteDataSource({required this.firebaseFirestore});
   List<Suggestion> getAll() => throw Exception();
 
-  addSuggestion(Suggestion suggestion) {
+  add(Suggestion suggestion) {
     throw Exception();
   }
 
@@ -11,5 +16,7 @@ class SuggestionRemotelDataSource {
     throw Exception();
   }
 
-  delete(String id) {}
+  delete(String id) {
+    throw Exception();
+  }
 }

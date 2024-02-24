@@ -1,6 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
+import 'package:equatable/equatable.dart';
 
-class Suggestion {
+class Suggestion extends Equatable {
   final String id;
   String title;
   String description;
@@ -11,4 +12,10 @@ class Suggestion {
       required this.title,
       required this.description,
       required this.category});
+
+  @override
+  List<Object> get props => [id, title, description, category];
+
+  @override
+  bool get stringify => true;
 }
