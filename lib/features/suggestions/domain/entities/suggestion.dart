@@ -4,7 +4,7 @@ class Suggestion {
   final String id;
   String title;
   String description;
-  final Category category;
+  Category category;
 
   Suggestion(
       {required this.id,
