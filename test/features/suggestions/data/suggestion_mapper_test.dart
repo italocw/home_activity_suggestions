@@ -20,7 +20,7 @@ void main() {
     'categoryId': '1'
   };
 
-  group('Suggestion Mapper tests', () {
+  group('Suggestion Mapper', () {
     test('Should return domain suggestion', (() {
       final suggestionResult =
           SuggestionMapper.toSuggestion(firestoreSuggestionMap);

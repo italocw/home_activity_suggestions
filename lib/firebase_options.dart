@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:home_activity_sugestions/config.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -50,7 +51,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAcdi-5D1nDG0E6ZTQ9Ma53BZX69d7rvxc',
+    apiKey: Config.ANDROID_API_KEY,
     appId: '1:770465677197:android:b144bca9aeedb4e4c207c4',
     messagingSenderId: '770465677197',
     projectId: 'home-activity-suggestions',
@@ -58,7 +59,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDCwGmWE9Zi9Zaz6RuncQXh5S4KHOYWubU',
+    apiKey: Config.IOS_API_KEY,
     appId: '1:770465677197:ios:100a2a2805ae2968c207c4',
     messagingSenderId: '770465677197',
     projectId: 'home-activity-suggestions',
