@@ -7,5 +7,5 @@ class GetSuggestions {
 
   GetSuggestions(this.repository);
 
-  Future<Result<List<Suggestion>>> call() => repository.getSuggestions();
+  Future<Result<List<Suggestion>>> call() => repository.getAll();
 }

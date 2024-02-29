@@ -1,22 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 
 class SuggestionRemoteDataSource {
   final FirebaseFirestore firebaseFirestore;
+  SuggestionRemoteDataSource({required this.firebaseFirestore}) {}
 
-  SuggestionRemoteDataSource({required this.firebaseFirestore});
-  List<Suggestion> getAll() => throw Exception();
-
-  add(Suggestion suggestion) {
-    throw Exception();
+  Future<List<DocumentSnapshot<Object?>>> getAllSuggestionDocuments() async {
+    final QuerySnapshot querySnapshot = await _collection.get();
+    return querySnapshot.docs;
   }
 
-  update(Suggestion suggestion) {
-    throw Exception();
-  }
+  Stream<QuerySnapshot<Object?>> get snapshots => _collection.snapshots();
 
-  delete(String id) {
-    throw Exception();
-  }
+  CollectionReference get _collection =>
+      firebaseFirestore.collection('suggestions');
+
+  Future<void> add(Map<String, dynamic> suggestion) async =>
+      await _collection.doc().set(suggestion);
+
+  Future<DocumentSnapshot<Object?>> getById(String id) async =>
+      await _collection.doc(id).get();
+
+  Future<void> update(
+          String documentId, Map<String, dynamic> updatedData) async =>
+      await _collection.doc(documentId).update(updatedData);
+
+  Future<void> delete(String id) async => await _collection.doc(id).delete();
 }

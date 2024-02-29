@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import 'suggestion_mapper_test.mocks.dart';
+
+@GenerateMocks([DocumentSnapshot<Object?>])
 void main() {
   final Category booksCategory =
       categories.firstWhere((category) => category.name == 'Books');
@@ -13,8 +19,7 @@ void main() {
       description: 'description',
       category: booksCategory);
 
-  final Map<String, String> firestoreSuggestionMap = {
-    'id': 'id',
+  final Map<String, dynamic> firestoreSuggestionMap = {
     'title': 'title',
     'description': 'description',
     'categoryId': '1'
@@ -22,15 +27,36 @@ void main() {
 
   group('Suggestion Mapper', () {
     test('Should return domain suggestion', (() {
+      final suggestionDocumentMock = MockDocumentSnapshot();
+
+      when(suggestionDocumentMock.id).thenAnswer((_) => 'id');
+
+      when(suggestionDocumentMock.data())
+          .thenAnswer((_) => firestoreSuggestionMap);
+
       final suggestionResult =
-          SuggestionMapper.toSuggestion(firestoreSuggestionMap);
+          SuggestionMapper.toSuggestion(suggestionDocumentMock);
       final expectedResult = suggestion;
 
       expect(suggestionResult, expectedResult);
     }));
 
+    test('Should throw exception when try to use unexpected data', (() {
+      final suggestionDocumentMock = MockDocumentSnapshot();
+
+      final unexpectedData = {'nonValidField': 'nonValidValue'};
+
+      when(suggestionDocumentMock.id).thenAnswer((_) => 'id');
+
+      when(suggestionDocumentMock.data()).thenAnswer((_) => unexpectedData);
+
+      result() => SuggestionMapper.toSuggestion(suggestionDocumentMock);
+
+      expect(result, throwsA(TypeMatcher<TypeError>()));
+    }));
+
     test('Should Firestore Map Suggestion', (() {
-      final suggestionMapResult = suggestion.toFirestoreMap();
+      final suggestionMapResult = suggestion.toMap();
       final expectedResult = firestoreSuggestionMap;
 
       expect(suggestionMapResult, expectedResult);
