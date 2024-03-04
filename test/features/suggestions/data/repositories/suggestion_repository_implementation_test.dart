@@ -6,115 +6,124 @@ import 'package:home_activity_sugestions/features/suggestions/data/datasource/su
 import 'package:home_activity_sugestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
-import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'suggestion_repository_implementation_test.mocks.dart';
 
-@GenerateMocks([SuggestionRemoteDataSource, DocumentSnapshot<Object?>])
+@GenerateMocks([SuggestionDataSource, DocumentSnapshot<Object?>])
 void main() {
-  late MockSuggestionRemoteDataSource remoteDataSourceMock;
-  late Map<String, dynamic> suggestionDataMap;
-  late Suggestion suggestion;
+  late MockSuggestionDataSource datasourceMock;
+  late Map<String, dynamic> testSuggestionDataMap;
+  late Suggestion testSuggestion;
   late MockDocumentSnapshot documentSnapshotMock;
-  final Category books =
+  final Category testCategory =
       categories.firstWhere((category) => category.name == 'Books');
-  late List<DocumentSnapshot<Object?>> documentList;
-  final suggestionId = 'id';
+  late List<DocumentSnapshot<Object?>> testDocumentList;
+  const testSuggestionId = 'id';
 
   setUp(() async {
-    remoteDataSourceMock = MockSuggestionRemoteDataSource();
+    datasourceMock = MockSuggestionDataSource();
 
-    suggestionDataMap = {
+    testSuggestionDataMap = {
       'title': 'title',
       'description': 'description',
-      'categoryId': books.id
+      'categoryId': testCategory.id
     };
 
-    suggestion = Suggestion(
-        id: 'id', title: 'title', description: 'description', category: books);
+    testSuggestion = Suggestion(
+        id: 'id',
+        title: 'title',
+        description: 'description',
+        category: testCategory);
 
     documentSnapshotMock = MockDocumentSnapshot();
-    when(documentSnapshotMock.id).thenAnswer((_) => suggestionId);
-    when(documentSnapshotMock.data()).thenAnswer((_) => suggestionDataMap);
+    when(documentSnapshotMock.id).thenAnswer((_) => testSuggestionId);
+    when(documentSnapshotMock.data()).thenAnswer((_) => testSuggestionDataMap);
 
-    documentList = [documentSnapshotMock];
+    testDocumentList = [documentSnapshotMock];
   });
 
   group('Suggestion Repository Implementation tests', () {
-    test('Should return suggestions list', (() async {
-      when(remoteDataSourceMock.getAllSuggestionDocuments())
-          .thenAnswer((_) async => Future.value(documentList));
+    test('Should retrieve non empty suggestions list', (() async {
+      when(datasourceMock.getAllSuggestionDocuments())
+          .thenAnswer((_) async => Future.value(testDocumentList));
 
-      final expectedList = [suggestion];
+      final expectedList = [testSuggestion];
 
-      final repository =
-          SuggestionRepositoryImpl(remoteDataSource: remoteDataSourceMock);
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
 
       final getAllResultValue =
           ((await repository.getAll()) as Success<List<Suggestion>>).value;
 
-      expect(getAllResultValue.length, documentList.length);
+      expect(getAllResultValue.length, testDocumentList.length);
 
       getAllResultValue.asMap().forEach((index, currentResultSuggestion) {
         expect(currentResultSuggestion, equals(expectedList[index]));
       });
     }));
 
+    test('Should retrieve  empty suggestions list', (() async {
+      when(datasourceMock.getAllSuggestionDocuments())
+          .thenAnswer((_) async => Future.value([]));
+
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+
+      final getAllResultValue =
+          ((await repository.getAll()) as Success<List<Suggestion>>).value;
+
+      expect(getAllResultValue.isEmpty, true);
+    }));
+
     test('Suggestion should be added', () async {
-      final repository =
-          SuggestionRepositoryImpl(remoteDataSource: remoteDataSourceMock);
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
 
-      when(remoteDataSourceMock.add(any))
+      when(datasourceMock.add(any))
           .thenAnswer((_) async => Future<void>.value());
-      repository.addSuggestion(suggestion);
+      repository.addSuggestion(testSuggestion);
 
-      verify(remoteDataSourceMock.add(suggestionDataMap));
+      verify(datasourceMock.add(testSuggestionDataMap));
     });
 
     test('Suggestion should be deleted', () async {
-      final repository =
-          SuggestionRepositoryImpl(remoteDataSource: remoteDataSourceMock);
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
 
-      when(remoteDataSourceMock.delete(any))
+      when(datasourceMock.delete(any))
           .thenAnswer((_) async => Future<void>.value());
-      repository.deleteSuggestion(suggestion.id!);
+      repository.deleteSuggestion(testSuggestion.id!);
 
-      verify(remoteDataSourceMock.delete(suggestion.id!));
+      verify(datasourceMock.delete(testSuggestion.id!));
     });
 
     test('Suggestion should be updated', () async {
-      final repository =
-          SuggestionRepositoryImpl(remoteDataSource: remoteDataSourceMock);
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
 
       const updatedTitle = 'Updated title';
 
-      var updatedSuggestion = suggestion;
+      var updatedSuggestion = testSuggestion;
       updatedSuggestion.title = updatedTitle;
 
-      var updatedSuggestionMap = suggestionDataMap;
+      var updatedSuggestionMap = testSuggestionDataMap;
       updatedSuggestionMap['title'] = updatedTitle;
 
-      when(remoteDataSourceMock.update(any, any))
+      when(datasourceMock.update(any, any))
           .thenAnswer((_) async => Future<void>.value());
 
       repository.updateSuggestion(updatedSuggestion);
 
-      verify(remoteDataSourceMock.update(suggestion.id, updatedSuggestionMap));
+      verify(datasourceMock.update(testSuggestion.id, updatedSuggestionMap));
     });
 
     test('Suggestion related to the passed id should be returned', () async {
-      final repository =
-          SuggestionRepositoryImpl(remoteDataSource: remoteDataSourceMock);
+      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
 
-      when(remoteDataSourceMock.getById(suggestionId))
+      when(datasourceMock.getById(testSuggestionId))
           .thenAnswer((_) async => Future.value(documentSnapshotMock));
 
       final returnedSuggestion =
-          await repository.getSuggestionById(suggestionId);
+          await repository.getSuggestionById(testSuggestionId);
 
-      expect(returnedSuggestion, equals(Success(suggestion)));
+      expect(returnedSuggestion, equals(Success(testSuggestion)));
     });
   });
 }

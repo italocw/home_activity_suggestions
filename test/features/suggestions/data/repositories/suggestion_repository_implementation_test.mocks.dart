@@ -60,9 +60,9 @@ class _FakeSnapshotMetadata_2 extends _i1.SmartFake
 /// A class which mocks [SuggestionRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSuggestionRemoteDataSource extends _i1.Mock
-    implements _i3.SuggestionRemoteDataSource {
-  MockSuggestionRemoteDataSource() {
+class MockSuggestionDataSource extends _i1.Mock
+    implements _i3.SuggestionDataSource {
+  MockSuggestionDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

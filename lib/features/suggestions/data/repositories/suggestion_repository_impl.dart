@@ -6,23 +6,26 @@ import 'package:home_activity_sugestions/features/suggestions/domain/entities/su
 import 'package:home_activity_sugestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class SuggestionRepositoryImpl implements SuggestionRepository {
-  final SuggestionRemoteDataSource remoteDataSource;
+  final SuggestionDataSource _dataSource;
 
-  SuggestionRepositoryImpl({required this.remoteDataSource});
+  SuggestionRepositoryImpl({required SuggestionDataSource dataSource})
+      : _dataSource = dataSource;
+
+  @override
+  Stream<QuerySnapshot<Object?>> get snapshots => _dataSource.snapshots;
 
   @override
   Future<void> addSuggestion(Suggestion suggestion) async =>
-      await remoteDataSource.add(suggestion.toMap());
+      await _dataSource.add(suggestion.toMap());
 
   @override
   Future<void> deleteSuggestion(String id) async =>
-      await remoteDataSource.delete(id);
+      await _dataSource.delete(id);
 
   @override
   Future<Result<List<Suggestion>>> getAll() async {
     try {
-      final documentSnapshots =
-          await remoteDataSource.getAllSuggestionDocuments();
+      final documentSnapshots = await _dataSource.getAllSuggestionDocuments();
       final suggestionList = documentSnapshots
           .map((document) => SuggestionMapper.toSuggestion(document))
           .toList();
@@ -35,12 +38,12 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
 
   @override
   Future<void> updateSuggestion(Suggestion suggestion) async =>
-      await remoteDataSource.update(suggestion.id!, suggestion.toMap());
+      await _dataSource.update(suggestion.id!, suggestion.toMap());
 
   @override
   Future<Result<Suggestion>> getSuggestionById(String id) async {
     try {
-      final foundSuggestionMap = (await remoteDataSource.getById(id));
+      final foundSuggestionMap = (await _dataSource.getById(id));
       final suggestion = SuggestionMapper.toSuggestion(foundSuggestionMap);
 
       return Success(suggestion);
