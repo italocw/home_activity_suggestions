@@ -5,5 +5,5 @@ class DeleteSuggestion {
 
   DeleteSuggestion(this.repository);
 
-  Future<void> call(String id) => throw Exception();
+  Future<void> call(String id) => repository.deleteSuggestion(id);
 }

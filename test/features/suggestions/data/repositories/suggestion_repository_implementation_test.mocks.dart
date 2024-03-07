@@ -24,9 +24,20 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeDocumentSnapshot_0<T extends Object?> extends _i1.SmartFake
+class _FakeFirebaseFirestore_0 extends _i1.SmartFake
+    implements _i2.FirebaseFirestore {
+  _FakeFirebaseFirestore_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDocumentSnapshot_1<T extends Object?> extends _i1.SmartFake
     implements _i2.DocumentSnapshot<T> {
-  _FakeDocumentSnapshot_0(
+  _FakeDocumentSnapshot_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -35,9 +46,9 @@ class _FakeDocumentSnapshot_0<T extends Object?> extends _i1.SmartFake
         );
 }
 
-class _FakeDocumentReference_1<T1 extends Object?> extends _i1.SmartFake
+class _FakeDocumentReference_2<T1 extends Object?> extends _i1.SmartFake
     implements _i2.DocumentReference<T1> {
-  _FakeDocumentReference_1(
+  _FakeDocumentReference_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -46,9 +57,9 @@ class _FakeDocumentReference_1<T1 extends Object?> extends _i1.SmartFake
         );
 }
 
-class _FakeSnapshotMetadata_2 extends _i1.SmartFake
+class _FakeSnapshotMetadata_3 extends _i1.SmartFake
     implements _i2.SnapshotMetadata {
-  _FakeSnapshotMetadata_2(
+  _FakeSnapshotMetadata_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -57,7 +68,7 @@ class _FakeSnapshotMetadata_2 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [SuggestionRemoteDataSource].
+/// A class which mocks [SuggestionDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSuggestionDataSource extends _i1.Mock
@@ -65,6 +76,15 @@ class MockSuggestionDataSource extends _i1.Mock
   MockSuggestionDataSource() {
     _i1.throwOnMissingStub(this);
   }
+
+  @override
+  _i2.FirebaseFirestore get firebaseFirestore => (super.noSuchMethod(
+        Invocation.getter(#firebaseFirestore),
+        returnValue: _FakeFirebaseFirestore_0(
+          this,
+          Invocation.getter(#firebaseFirestore),
+        ),
+      ) as _i2.FirebaseFirestore);
 
   @override
   _i4.Stream<_i2.QuerySnapshot<Object?>> get snapshots => (super.noSuchMethod(
@@ -76,7 +96,7 @@ class MockSuggestionDataSource extends _i1.Mock
   _i4.Future<List<_i2.DocumentSnapshot<Object?>>> getAllSuggestionDocuments() =>
       (super.noSuchMethod(
         Invocation.method(
-          #getAll,
+          #getAllSuggestionDocuments,
           [],
         ),
         returnValue: _i4.Future<List<_i2.DocumentSnapshot<Object?>>>.value(
@@ -101,7 +121,7 @@ class MockSuggestionDataSource extends _i1.Mock
           [id],
         ),
         returnValue: _i4.Future<_i2.DocumentSnapshot<Object?>>.value(
-            _FakeDocumentSnapshot_0<Object?>(
+            _FakeDocumentSnapshot_1<Object?>(
           this,
           Invocation.method(
             #getById,
@@ -159,7 +179,7 @@ class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
   @override
   _i2.DocumentReference<T> get reference => (super.noSuchMethod(
         Invocation.getter(#reference),
-        returnValue: _FakeDocumentReference_1<T>(
+        returnValue: _FakeDocumentReference_2<T>(
           this,
           Invocation.getter(#reference),
         ),
@@ -168,7 +188,7 @@ class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
   @override
   _i2.SnapshotMetadata get metadata => (super.noSuchMethod(
         Invocation.getter(#metadata),
-        returnValue: _FakeSnapshotMetadata_2(
+        returnValue: _FakeSnapshotMetadata_3(
           this,
           Invocation.getter(#metadata),
         ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_activity_sugestions/core/result.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
@@ -7,16 +8,26 @@ import 'package:home_activity_sugestions/features/suggestions/domain/repositorie
 
 class SuggestionRepositoryImpl implements SuggestionRepository {
   final SuggestionDataSource _dataSource;
+  final FirebaseAuth _firebaseAuth;
 
-  SuggestionRepositoryImpl({required SuggestionDataSource dataSource})
-      : _dataSource = dataSource;
+  SuggestionRepositoryImpl(this._dataSource, this._firebaseAuth);
 
   @override
   Stream<QuerySnapshot<Object?>> get snapshots => _dataSource.snapshots;
 
   @override
-  Future<void> addSuggestion(Suggestion suggestion) async =>
-      await _dataSource.add(suggestion.toMap());
+  Future<void> addSuggestion(Suggestion suggestion) async {
+    final suggestionMap = _suggestionMapWithUId(suggestion);
+    await _dataSource.add(suggestionMap);
+  }
+
+  get _currentUserID => _firebaseAuth.currentUser!.uid;
+
+  Map<String, String> _suggestionMapWithUId(Suggestion suggestion) {
+    var suggestionMap = suggestion.toMap();
+    suggestionMap['uid'] = _currentUserID;
+    return suggestionMap;
+  }
 
   @override
   Future<void> deleteSuggestion(String id) async =>
@@ -37,8 +48,10 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
   }
 
   @override
-  Future<void> updateSuggestion(Suggestion suggestion) async =>
-      await _dataSource.update(suggestion.id!, suggestion.toMap());
+  Future<void> updateSuggestion(Suggestion suggestion) async {
+    final suggestionMap = _suggestionMapWithUId(suggestion);
+    await _dataSource.update(suggestion.id!, suggestionMap);
+  }
 
   @override
   Future<Result<Suggestion>> getSuggestionById(String id) async {

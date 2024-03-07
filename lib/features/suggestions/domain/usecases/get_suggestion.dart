@@ -7,5 +7,6 @@ class GetSuggestion {
 
   GetSuggestion(this.repository);
 
-  Future<Result<Suggestion>> call(String id) => throw Exception();
+  Future<Result<Suggestion>> call(String id) =>
+      repository.getSuggestionById(id);
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';

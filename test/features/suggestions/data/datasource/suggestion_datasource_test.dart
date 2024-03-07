@@ -20,7 +20,8 @@ void main() {
   });
 
   group('Data source tests', () {
-    test('Should retrieve expected suggestion document', (() async {
+    test('Should retrieve expected suggestion documents from snapshots',
+        (() async {
       await testCollection.doc().set(testSuggestionData);
       final QuerySnapshot querySnapshot = await testCollection.get();
       final expectedResult = querySnapshot.docs;
@@ -28,7 +29,7 @@ void main() {
       final SuggestionDataSource remoteDataSource =
           SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
 
-      final snapshotListResult = remoteDataSource.snapshots.listen((event) {
+      remoteDataSource.snapshots.listen((event) {
         assertSuggestionDocumentListEquality(event.docs, expectedResult);
       });
     }));

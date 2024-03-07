@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:home_activity_sugestions/core/result.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
@@ -21,6 +23,9 @@ void main() {
       categories.firstWhere((category) => category.name == 'Books');
   late List<DocumentSnapshot<Object?>> testDocumentList;
   const testSuggestionId = 'id';
+  const testUId = 'uid';
+  final testFirebaseAuth =
+      MockFirebaseAuth(signedIn: true, mockUser: MockUser(uid: testUId));
 
   setUp(() async {
     datasourceMock = MockSuggestionDataSource();
@@ -28,7 +33,8 @@ void main() {
     testSuggestionDataMap = {
       'title': 'title',
       'description': 'description',
-      'categoryId': testCategory.id
+      'categoryId': testCategory.id,
+      'uid': testUId
     };
 
     testSuggestion = Suggestion(
@@ -38,8 +44,8 @@ void main() {
         category: testCategory);
 
     documentSnapshotMock = MockDocumentSnapshot();
-    when(documentSnapshotMock.id).thenAnswer((_) => testSuggestionId);
-    when(documentSnapshotMock.data()).thenAnswer((_) => testSuggestionDataMap);
+    when(documentSnapshotMock.id).thenReturn(testSuggestionId);
+    when(documentSnapshotMock.data()).thenReturn(testSuggestionDataMap);
 
     testDocumentList = [documentSnapshotMock];
   });
@@ -51,7 +57,8 @@ void main() {
 
       final expectedList = [testSuggestion];
 
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
       final getAllResultValue =
           ((await repository.getAll()) as Success<List<Suggestion>>).value;
@@ -67,7 +74,8 @@ void main() {
       when(datasourceMock.getAllSuggestionDocuments())
           .thenAnswer((_) async => Future.value([]));
 
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
       final getAllResultValue =
           ((await repository.getAll()) as Success<List<Suggestion>>).value;
@@ -76,27 +84,26 @@ void main() {
     }));
 
     test('Suggestion should be added', () async {
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
-      when(datasourceMock.add(any))
-          .thenAnswer((_) async => Future<void>.value());
-      repository.addSuggestion(testSuggestion);
+      await repository.addSuggestion(testSuggestion);
 
-      verify(datasourceMock.add(testSuggestionDataMap));
+      verify(datasourceMock.add(testSuggestionDataMap)).called(1);
     });
 
     test('Suggestion should be deleted', () async {
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
-      when(datasourceMock.delete(any))
-          .thenAnswer((_) async => Future<void>.value());
-      repository.deleteSuggestion(testSuggestion.id!);
+      await repository.deleteSuggestion(testSuggestion.id!);
 
-      verify(datasourceMock.delete(testSuggestion.id!));
+      verify(datasourceMock.delete(testSuggestion.id!)).called(1);
     });
 
     test('Suggestion should be updated', () async {
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
       const updatedTitle = 'Updated title';
 
@@ -106,16 +113,15 @@ void main() {
       var updatedSuggestionMap = testSuggestionDataMap;
       updatedSuggestionMap['title'] = updatedTitle;
 
-      when(datasourceMock.update(any, any))
-          .thenAnswer((_) async => Future<void>.value());
+      await repository.updateSuggestion(updatedSuggestion);
 
-      repository.updateSuggestion(updatedSuggestion);
-
-      verify(datasourceMock.update(testSuggestion.id, updatedSuggestionMap));
+      verify(datasourceMock.update(testSuggestion.id, updatedSuggestionMap))
+          .called(1);
     });
 
     test('Suggestion related to the passed id should be returned', () async {
-      final repository = SuggestionRepositoryImpl(dataSource: datasourceMock);
+      final repository =
+          SuggestionRepositoryImpl(datasourceMock, testFirebaseAuth);
 
       when(datasourceMock.getById(testSuggestionId))
           .thenAnswer((_) async => Future.value(documentSnapshotMock));

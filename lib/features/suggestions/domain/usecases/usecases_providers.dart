@@ -26,7 +26,7 @@ get getSuggestionProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return GetSuggestion(repository);
     });
-get getStreamList => Provider((ref) {
+get getSnapshotProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return GetSuggestionList(repository);
     });

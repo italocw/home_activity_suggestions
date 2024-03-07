@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_sugestions/core/result.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
@@ -20,29 +21,23 @@ get suggestionsProvider => Provider((ref) {
     });
 
 class SuggestionNotifier extends StateNotifier<List<Suggestion>> {
-  SuggestionNotifier(
-      this._addSuggestion,
-      this._updateSuggestion,
-      this._deleteSuggestion,
-      this._getSuggestions,
-      this.getSuggestionStreamList)
+  SuggestionNotifier(this._addSuggestion, this._updateSuggestion,
+      this._deleteSuggestion, this._getSuggestions, this._getSuggestionStream)
       : super([]);
 
   final AddSuggestion _addSuggestion;
   final DeleteSuggestion _deleteSuggestion;
   final UpdateSuggestion _updateSuggestion;
   final GetSuggestionList _getSuggestions;
-  final GetSuggestionStream getSuggestionStreamList;
-
-  void init() {}
+  final GetSuggestionStream _getSuggestionStream;
 
   Future<void> addSuggestion(Suggestion suggestion) async =>
       _addSuggestion(suggestion);
 
   Future<Result<List<Suggestion>>> getSuggestions() async => _getSuggestions();
 
-  Future<void> getSuggestionsSnapshot() async =>
-      _getSu);
+  Stream<QuerySnapshot<Object?>> getSuggestionsSnapshot() =>
+      _getSuggestionStream();
 
   Future<void> updateSuggestion(Suggestion suggestion) async =>
       _updateSuggestion(suggestion);

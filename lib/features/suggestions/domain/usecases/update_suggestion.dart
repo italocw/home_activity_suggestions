@@ -6,5 +6,6 @@ class UpdateSuggestion {
 
   UpdateSuggestion(this.repository);
 
-  Future<void> call(Suggestion suggestion) => throw Exception();
+  Future<void> call(Suggestion suggestion) =>
+      repository.updateSuggestion(suggestion);
 }
