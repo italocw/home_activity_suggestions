@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
+import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
 
 Provider<FirebaseFirestore> get firebaseFirestoreProvider => Provider((ref) {
@@ -24,5 +24,6 @@ Provider<SuggestionRepositoryImpl> get suggestionRepositoryProvider =>
       final firebaseAuth = ref.read(firebaseAuthProvider);
       final suggestionDatasource = ref.read(suggestionDatasourceProvider);
 
-      return SuggestionRepositoryImpl(suggestionDatasource, firebaseAuth);
+      return SuggestionRepositoryImpl(
+          suggestionDatasource, firebaseAuth.currentUser);
     });

@@ -12,7 +12,6 @@ class AuthOrganism extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
-
     final screenData = ref.watch(authScreenNotifierProvider);
 
     void onSubmitButtonPressed() async {
@@ -21,7 +20,6 @@ class AuthOrganism extends ConsumerWidget {
 
       if (isValid) {
         formState.save();
-
         screenNotifier.submitAuthData();
       }
     }

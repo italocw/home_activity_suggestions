@@ -6,6 +6,6 @@ class AddSuggestion {
 
   AddSuggestion(this.repository);
 
-  Future<void> call(Suggestion suggestion) =>
-      repository.addSuggestion(suggestion);
+  Future<void> call(Suggestion suggestion) async =>
+      await repository.addSuggestion(suggestion);
 }

@@ -6,7 +6,7 @@ import 'package:home_activity_sugestions/features/suggestions/domain/usecases/ge
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_list.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
 
-get suggestionListProvider => Provider((ref) {
+get getSuggestionListProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return GetSuggestionList(repository);
     });

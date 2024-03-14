@@ -7,10 +7,9 @@ extension SuggetionsExtension on Suggestion {
       {'title': title, 'description': description, 'categoryId': category.id};
 }
 
-class SuggestionMapper {
-  static Suggestion toSuggestion(DocumentSnapshot<Object?> suggestionSnapshot) {
-    final suggestionData = suggestionSnapshot.data() as Map<String, dynamic>;
-    final id = suggestionSnapshot.id;
+extension SuggetionsSnapshotExtension on DocumentSnapshot<Object?> {
+  Suggestion toSuggestion() {
+    final suggestionData = data() as Map<String, dynamic>;
     final title = suggestionData['title']!;
     final description = suggestionData['description']!;
     final category = categories

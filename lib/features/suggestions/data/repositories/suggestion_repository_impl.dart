@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_activity_sugestions/core/result.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
+import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class SuggestionRepositoryImpl implements SuggestionRepository {
   final SuggestionDataSource _dataSource;
-  final FirebaseAuth _firebaseAuth;
+  final User _currentUser;
 
-  SuggestionRepositoryImpl(this._dataSource, this._firebaseAuth);
+  SuggestionRepositoryImpl(this._dataSource, this._currentUser);
 
   @override
   Stream<QuerySnapshot<Object?>> get snapshots => _dataSource.snapshots;
@@ -21,7 +21,7 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
     await _dataSource.add(suggestionMap);
   }
 
-  get _currentUserID => _firebaseAuth.currentUser!.uid;
+  get _currentUserID => _currentUser.uid;
 
   Map<String, String> _suggestionMapWithUId(Suggestion suggestion) {
     var suggestionMap = suggestion.toMap();

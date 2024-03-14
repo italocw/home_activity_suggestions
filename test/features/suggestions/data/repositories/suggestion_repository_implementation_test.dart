@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:home_activity_sugestions/core/result.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
+import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';

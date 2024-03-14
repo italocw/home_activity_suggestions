@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart';
+import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:test/test.dart';
 
 void main() {

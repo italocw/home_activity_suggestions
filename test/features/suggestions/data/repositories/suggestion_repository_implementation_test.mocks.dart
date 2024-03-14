@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_remote_datasource.dart'
+import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;

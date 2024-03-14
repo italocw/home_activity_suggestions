@@ -5,9 +5,9 @@ import 'package:home_activity_sugestions/features/authentication/data/auth_scree
 import 'package:home_activity_sugestions/features/suggestions/data/data_providers.dart';
 import 'package:home_activity_sugestions/main.dart';
 
-final appLocalizationsProvider = Provider<AppLocalizations?>((ref) {
+final appLocalizationsProvider = Provider<AppLocalizations>((ref) {
   final context = ref.read(navigatorKeyProvider).currentContext!;
-  return AppLocalizations.of(context);
+  return AppLocalizations.of(context)!;
 });
 
 final authScreenNotifierProvider =
@@ -16,7 +16,7 @@ final authScreenNotifierProvider =
   final firebaseAuth = ref.read(firebaseAuthProvider);
 
   final authScreenData =
-      AuthScreenData.build(AuthScreenMode.signIn, appLocalizations!);
+      AuthScreenData.build(AuthScreenMode.signIn, appLocalizations);
 
   return AuthScreenStateNotifier(
       authScreenData, appLocalizations, firebaseAuth);

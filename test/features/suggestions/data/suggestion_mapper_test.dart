@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-
 import 'suggestion_mapper_test.mocks.dart';
 
 @GenerateMocks([DocumentSnapshot<Object?>])
@@ -34,6 +34,7 @@ void main() {
       when(suggestionDocumentMock.data())
           .thenAnswer((_) => firestoreSuggestionMap);
 
+MockFirebaseAuth
       final suggestionResult =
           SuggestionMapper.toSuggestion(suggestionDocumentMock);
       final expectedResult = suggestion;

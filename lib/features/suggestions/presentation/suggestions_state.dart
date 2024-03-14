@@ -5,7 +5,7 @@ import 'package:home_activity_sugestions/features/suggestions/domain/entities/su
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/add_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/delete_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_list.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_stream_list.dart';
+import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/usecases_providers.dart';
 
@@ -13,7 +13,7 @@ get suggestionsProvider => Provider((ref) {
       final addSuggestion = ref.read(addSuggestionProvider);
       final deleteSuggestion = ref.read(deleteSuggestionProvider);
       final updateSuggestion = ref.read(updateSuggestionsProvider);
-      final suggestionList = ref.read(getSuggestionListProvider);
+      final suggestionList = ref.read(suggestionListProvider);
       final snapshots = ref.read(getSnapshotProvider);
 
       return SuggestionListNotifier(addSuggestion, deleteSuggestion,
