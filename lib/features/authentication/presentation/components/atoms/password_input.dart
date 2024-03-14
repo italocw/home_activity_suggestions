@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/data_providers.dart';
+import 'package:home_activity_sugestions/features/authentication/presentation/auth_screen_state.dart';
 
 class PasswordInput extends ConsumerStatefulWidget {
   const PasswordInput({super.key});
@@ -25,8 +25,8 @@ class _PasswordInputState extends ConsumerState<PasswordInput> {
         }
       },
       onSaved: (enteredPassword) {
-        final authService = ref.read(firebaseAuthServiceProvider);
-        authService.password = enteredPassword!;
+        final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
+        screenNotifier.setPassword(enteredPassword!);
       },
     );
   }

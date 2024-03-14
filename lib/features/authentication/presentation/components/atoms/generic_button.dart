@@ -10,7 +10,7 @@ class GenericButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
+      child: OutlinedButton(
         onPressed: onPressed,
         child: Text(text),
       ),

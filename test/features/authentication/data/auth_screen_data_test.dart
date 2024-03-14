@@ -1,32 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/*
-@GenerateMocks([FirebaseAuth, UserCredential])
+@GenerateMocks([AppLocalizations])
 void main() {
-  const testUserEmail = 'user@email.com';
-  const testUserPassword = 'user123';
+  MockAppLocalizations mockAppLocalizations;
 
-  late MockitoFirebaseAuth mockFirebaseAuth;
-  late FirebaseAuthService firebaseAuthServiceSUT;
-  late MockUserCredential mockUserCredential;
-
-  group('Firebase auth service tests', () {
-    setUp(() {
-      mockFirebaseAuth = MockitoFirebaseAuth();
-
-      firebaseAuthServiceSUT = FirebaseAuthService(mockFirebaseAuth);
-      mockUserCredential = MockUserCredential();
-
-      firebaseAuthServiceSUT.email = testUserEmail;
-      firebaseAuthServiceSUT.password = testUserPassword;
-    });
-
-    test('Should call firebase auth sign in with expected data', () async {
+  setUp(() {
+    mockAppLocalizations = MockAppLocalizations();
+    when(mockAppLocalizations.getText(anyNamed('text'))).thenReturn("");
+  });
+  group('Auth screen data tests', () {
+    /* test('Should call firebase auth sign in with expected data', () async {
       final expectedResult = await Future.value(mockUserCredential);
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
+      when(mockFirebaseAuth.getT(
               email: anyNamed('email'), password: anyNamed('password')))
           .thenAnswer((_) async => expectedResult);
 
@@ -52,7 +40,6 @@ void main() {
           .called(1);
 
       expect(createAccountResult, expectedResult);
-    });
+    });*/
   });
 }
-*/

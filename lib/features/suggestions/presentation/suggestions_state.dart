@@ -16,12 +16,12 @@ get suggestionsProvider => Provider((ref) {
       final suggestionList = ref.read(getSuggestionListProvider);
       final snapshots = ref.read(getSnapshotProvider);
 
-      return SuggestionNotifier(addSuggestion, deleteSuggestion,
+      return SuggestionListNotifier(addSuggestion, deleteSuggestion,
           updateSuggestion, suggestionList, snapshots);
     });
 
-class SuggestionNotifier extends StateNotifier<List<Suggestion>> {
-  SuggestionNotifier(this._addSuggestion, this._updateSuggestion,
+class SuggestionListNotifier extends StateNotifier<List<Suggestion>> {
+  SuggestionListNotifier(this._addSuggestion, this._updateSuggestion,
       this._deleteSuggestion, this._getSuggestions, this._getSuggestionStream)
       : super([]);
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HelloText extends StatelessWidget {
-  const HelloText({super.key});
+class AuthText extends StatelessWidget {
+  const AuthText({super.key, required this.text});
 
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Olá!\nInforme sua conta ou cadastre-se!",
+      text,
       style: Theme.of(context).textTheme.titleMedium,
       textAlign: TextAlign.start,
     );
