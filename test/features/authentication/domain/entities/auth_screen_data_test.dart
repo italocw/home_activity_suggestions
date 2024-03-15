@@ -5,14 +5,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @GenerateMocks([AppLocalizations])
 void main() {
-  MockAppLocalizations mockAppLocalizations;
+   MockAppLocalizations mockAppLocalizations;
 
   setUp(() {
     mockAppLocalizations = MockAppLocalizations();
     when(mockAppLocalizations.getText(anyNamed('text'))).thenReturn("");
   });
   group('Auth screen data tests', () {
-    /* test('Should call firebase auth sign in with expected data', () async {
+    test('Should call firebase auth sign in with expected data', () async {
       final expectedResult = await Future.value(mockUserCredential);
       when(mockFirebaseAuth.getT(
               email: anyNamed('email'), password: anyNamed('password')))
@@ -40,6 +40,6 @@ void main() {
           .called(1);
 
       expect(createAccountResult, expectedResult);
-    });*/
+    });
   });
 }

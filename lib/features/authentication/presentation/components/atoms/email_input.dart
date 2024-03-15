@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/presentation/auth_screen_state.dart';
+import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
 class EmailInput extends ConsumerStatefulWidget {
   const EmailInput({super.key});

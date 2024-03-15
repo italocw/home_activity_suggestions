@@ -2,9 +2,10 @@ import 'package:home_activity_sugestions/features/authentication/domain/reposito
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 
 class Logout {
-  final AuthenticationRepository repository;
+  final AuthenticationRepository _authenticationRepository;
 
-  Logout(this.repository);
+  Logout({required AuthenticationRepository authenticationRepository})
+: _authenticationRepository = authenticationRepository;
 
-  Future<void> call() async => throw Exception;
+Future<void> call() async => throw Exception;
 }

@@ -1,32 +1,49 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/data_providers.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/add_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/delete_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_list.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
+import 'package:home_activity_sugestions/features/authentication/data/data_providers.dart';
+import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_sugestions/features/authentication/data/repositories/authentication_repository_impl.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/usecases/create_account.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/usecases/sign_in.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
 
-get getSuggestionListProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestionList(repository);
+import '../../presentation/providers/auth_screen_mode_provider.dart';
+import 'logout.dart';
+
+Provider<SwitchAuthScreenMode> get switchAuthScreenModeProvider =>
+    Provider((ref) {
+      final authScreenMode = ref.read(authScreenModeProvider.notifier);
+      return SwitchAuthScreenMode(screenModeStateController: authScreenMode);
     });
-get addSuggestionProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return AddSuggestion(repository);
+
+Provider<AuthenticationDataSource> get authenticationDataSourceProvider =>
+    Provider((ref) {
+      final firebaseAuth = ref.read(firebaseAuthProvider);
+      return AuthenticationDataSource(firebaseAuth: firebaseAuth);
     });
-get updateSuggestionsProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return UpdateSuggestion(repository);
+
+Provider<AuthenticationRepository> get authenticationRepositoryProvider =>
+    Provider((ref) {
+      final authenticationDataSource =
+          ref.read(authenticationDataSourceProvider);
+      return AuthenticationRepositoryImpl(
+          authenticationDataSource: authenticationDataSource);
     });
-get deleteSuggestionProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return DeleteSuggestion(repository);
+
+Provider<CreateAccount> get createAccountProvider => Provider((ref) {
+      final authenticationRepository =
+          ref.read(authenticationRepositoryProvider);
+      return CreateAccount(authenticationRepository: authenticationRepository);
     });
-get getSuggestionProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestion(repository);
+
+Provider<SignIn> get signInProvider => Provider((ref) {
+      final authenticationRepository =
+          ref.read(authenticationRepositoryProvider);
+      return SignIn(authenticationRepository: authenticationRepository);
     });
-get getSnapshotProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestionList(repository);
+
+Provider<Logout> get logout => Provider((ref) {
+      final authenticationRepository =
+          ref.read(authenticationRepositoryProvider);
+      return Logout(authenticationRepository: authenticationRepository);
     });

@@ -26,8 +26,4 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     // TODO: implement signIn
     throw UnimplementedError();
   }
-
-  @override
-  // TODO: implement snapshots
-  Stream<QuerySnapshot<Object?>> get snapshots => throw UnimplementedError();
 }

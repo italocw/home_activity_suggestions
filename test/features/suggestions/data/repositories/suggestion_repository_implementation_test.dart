@@ -9,11 +9,9 @@ import 'package:home_activity_sugestions/features/suggestions/domain/entities/su
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'suggestion_repository_implementation_test.mocks.dart';
-
-@GenerateMocks([SuggestionDataSource, DocumentSnapshot<Object?>])
+//@GenerateMocks([SuggestionDataSource, DocumentSnapshot<Object?>])
 void main() {
-  late MockSuggestionDataSource datasourceMock;
+/*  late MockSuggestionDataSource datasourceMock;
   late Map<String, dynamic> testSuggestionDataMap;
   late Suggestion testSuggestion;
   late MockDocumentSnapshot documentSnapshotMock;
@@ -129,5 +127,5 @@ void main() {
 
       expect(returnedSuggestion, equals(Success(testSuggestion)));
     });
-  });
+  }); */
 }

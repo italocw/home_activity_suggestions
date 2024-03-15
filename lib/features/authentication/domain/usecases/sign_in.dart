@@ -2,9 +2,10 @@ import 'package:home_activity_sugestions/features/authentication/domain/reposito
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 
 class SignIn {
-  final AuthenticationRepository repository;
+  final AuthenticationRepository _authenticationRepository;
 
-  SignIn(this.repository);
+  SignIn({required AuthenticationRepository authenticationRepository})
+      : _authenticationRepository = authenticationRepository;
 
   Future<void> call(String email, String password) async => throw Exception;
 }

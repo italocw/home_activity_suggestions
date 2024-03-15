@@ -1,10 +1,10 @@
 import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 
 class CreateAccount {
-  final AuthenticationRepository repository;
+  final AuthenticationRepository _authenticationRepository;
 
-  CreateAccount(this.repository);
+  CreateAccount({required AuthenticationRepository authenticationRepository})
+      : _authenticationRepository = authenticationRepository;
 
   Future<void> call(String email, String password) async => throw Exception;
 }

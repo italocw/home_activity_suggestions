@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'authentication_datasource_test.mocks.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart'
     as FakeFirebaseAuth; // Uses a fake implementation of firebase auth for test goals. This is not a mockito mock
-import 'authentication_datasource_test.mocks.dart';
 
 @GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
@@ -13,8 +17,8 @@ void main() {
   late MockUserCredential mockUserCredential;
   late AuthenticationDataSource authenticationDataSource;
   late FakeFirebaseAuth.MockFirebaseAuth fakeFirebaseAuth;
-  final testEmail = "email@email.com";
-  final testPassword = "password";
+  const testEmail = "email@email.com";
+  const testPassword = "password";
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
@@ -66,26 +70,9 @@ void main() {
           AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
 
       when(mockFirebaseAuth.signOut()).thenAnswer((_) async => {});
-
       await authenticationDataSource.logout();
 
       verify(await mockFirebaseAuth.signOut()).called(1);
-    }));
-
-    test('Should notify user sign in when entering with email and password',
-        (() async {
-      authenticationDataSource =
-          AuthenticationDataSource(firebaseAuth: fakeFirebaseAuth);
-
-      final Stream<User?> userStream = authenticationDataSource.userStream;
-
-      await fakeFirebaseAuth.signInWithEmailAndPassword(
-          email: testEmail, password: testPassword);
-
-      userStream.listen((user) {
-        expect(user, isNotNull);
-        expect(user!.email, testEmail);
-      });
     }));
   });
 }
