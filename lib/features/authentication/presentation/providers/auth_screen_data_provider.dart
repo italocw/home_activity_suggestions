@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
+import '../../../../core/providers.dart';
 import '../../domain/entities/auth_screen_data.dart';
 import 'auth_screen_mode_provider.dart';
 
-get authScreenDataProvider => StateProvider<AuthScreenData>((ref) {
+StateProvider<AuthScreenData> get authScreenDataProvider => StateProvider((ref) {
       final appLocalizations = ref.watch(appLocalizationsProvider);
       final AuthScreenMode authScreenMode = ref.watch(authScreenModeProvider);
 

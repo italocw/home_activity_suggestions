@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
 
 class CreateAccount {
@@ -6,5 +8,7 @@ class CreateAccount {
   CreateAccount({required AuthenticationRepository authenticationRepository})
       : _authenticationRepository = authenticationRepository;
 
-  Future<void> call(String email, String password) async => throw Exception;
+  Future<DomainUser> call(
+          {required String email, required String password})  =>
+       _authenticationRepository.createAccount(email: email, password: password);
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
+import '../../providers/auth_input_fields_providers.dart';
+
 class EmailInput extends ConsumerStatefulWidget {
   const EmailInput({super.key});
 
@@ -25,8 +27,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
         }
       },
       onSaved: (enteredEmail) {
-        final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
-        screenNotifier.setEmail(enteredEmail!);
+        ref.read(emailProvider.notifier).state = enteredEmail!;
       },
     );
   }

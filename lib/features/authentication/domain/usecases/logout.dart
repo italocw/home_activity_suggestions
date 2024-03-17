@@ -5,7 +5,7 @@ class Logout {
   final AuthenticationRepository _authenticationRepository;
 
   Logout({required AuthenticationRepository authenticationRepository})
-: _authenticationRepository = authenticationRepository;
+      : _authenticationRepository = authenticationRepository;
 
-Future<void> call() async => throw Exception;
+  Future<void> call()  => _authenticationRepository.logout();
 }

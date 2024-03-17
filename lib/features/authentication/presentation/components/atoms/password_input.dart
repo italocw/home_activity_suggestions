@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_input_fields_providers.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
 class PasswordInput extends ConsumerStatefulWidget {
@@ -25,8 +26,7 @@ class _PasswordInputState extends ConsumerState<PasswordInput> {
         }
       },
       onSaved: (enteredPassword) {
-        final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
-        screenNotifier.setPassword(enteredPassword!);
+        ref.read(passwordProvider.notifier).state = enteredPassword!;
       },
     );
   }

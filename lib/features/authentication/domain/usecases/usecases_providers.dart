@@ -42,7 +42,7 @@ Provider<SignIn> get signInProvider => Provider((ref) {
       return SignIn(authenticationRepository: authenticationRepository);
     });
 
-Provider<Logout> get logout => Provider((ref) {
+Provider<Logout> get logoutProvider => Provider((ref) {
       final authenticationRepository =
           ref.read(authenticationRepositoryProvider);
       return Logout(authenticationRepository: authenticationRepository);

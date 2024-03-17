@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_input_fields_providers.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/components/atoms/auth_text.dart';
 import 'package:home_activity_sugestions/features/authentication/presentation/components/atoms/generic_button.dart';
@@ -14,13 +15,16 @@ class AuthOrganism extends ConsumerWidget {
     final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
     final screenData = ref.watch(authScreenNotifierProvider);
 
+    final email = ref.read(emailProvider);
+    final password = ref.read(passwordProvider);
+
     void onSubmitButtonPressed() async {
       var formState = formKey.currentState!;
       final isValid = formState.validate();
 
       if (isValid) {
         formState.save();
-        screenNotifier.submitAuthData();
+        screenNotifier.submitAuth(email: email, password: password);
       }
     }
 

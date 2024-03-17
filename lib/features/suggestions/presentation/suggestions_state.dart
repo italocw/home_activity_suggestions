@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/core/result.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/add_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/delete_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_list.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/usecases_providers.dart';
@@ -13,31 +10,26 @@ get suggestionsProvider => Provider((ref) {
       final addSuggestion = ref.read(addSuggestionProvider);
       final deleteSuggestion = ref.read(deleteSuggestionProvider);
       final updateSuggestion = ref.read(updateSuggestionsProvider);
-      final suggestionList = ref.read(suggestionListProvider);
-      final snapshots = ref.read(getSnapshotProvider);
+      final snapshots = ref.watch(getSuggestionsStreamProvider);
 
-      return SuggestionListNotifier(addSuggestion, deleteSuggestion,
-          updateSuggestion, suggestionList, snapshots);
+      return SuggestionListNotifier(
+          addSuggestion, updateSuggestion, deleteSuggestion, snapshots);
     });
 
 class SuggestionListNotifier extends StateNotifier<List<Suggestion>> {
   SuggestionListNotifier(this._addSuggestion, this._updateSuggestion,
-      this._deleteSuggestion, this._getSuggestions, this._getSuggestionStream)
+      this._deleteSuggestion, this._getSuggestionStream)
       : super([]);
 
   final AddSuggestion _addSuggestion;
   final DeleteSuggestion _deleteSuggestion;
   final UpdateSuggestion _updateSuggestion;
-  final GetSuggestionList _getSuggestions;
   final GetSuggestionStream _getSuggestionStream;
 
   Future<void> addSuggestion(Suggestion suggestion) async =>
       _addSuggestion(suggestion);
 
-  Future<Result<List<Suggestion>>> getSuggestions() async => _getSuggestions();
-
-  Stream<QuerySnapshot<Object?>> getSuggestionsSnapshot() =>
-      _getSuggestionStream();
+  Stream<Suggestion> getSuggestionsStream() => _getSuggestionStream();
 
   Future<void> updateSuggestion(Suggestion suggestion) async =>
       _updateSuggestion(suggestion);

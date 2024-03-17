@@ -2,12 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SuggestionDataSource {
   final FirebaseFirestore firebaseFirestore;
-  SuggestionDataSource({required this.firebaseFirestore}) {}
-
-  Future<List<DocumentSnapshot<Object?>>> getAllSuggestionDocuments() async {
-    final QuerySnapshot querySnapshot = await _collection.get();
-    return querySnapshot.docs;
-  }
+  SuggestionDataSource({required this.firebaseFirestore});
 
   Stream<QuerySnapshot<Object?>> get snapshots => _collection.snapshots();
 

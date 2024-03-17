@@ -8,22 +8,19 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'authentication_datasource_test.mocks.dart';
-import 'package:firebase_auth_mocks/firebase_auth_mocks.dart'
-    as FakeFirebaseAuth; // Uses a fake implementation of firebase auth for test goals. This is not a mockito mock
+
 
 @GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
   late MockFirebaseAuth mockFirebaseAuth;
   late MockUserCredential mockUserCredential;
   late AuthenticationDataSource authenticationDataSource;
-  late FakeFirebaseAuth.MockFirebaseAuth fakeFirebaseAuth;
   const testEmail = "email@email.com";
   const testPassword = "password";
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
     mockUserCredential = MockUserCredential();
-    fakeFirebaseAuth = FakeFirebaseAuth.MockFirebaseAuth();
   });
 
   group('Authentication data source tests', () {
@@ -37,7 +34,7 @@ void main() {
           .thenAnswer((_) async => expectedUserCredential);
 
       final userCredential =
-          await authenticationDataSource.signIn(testEmail, testPassword);
+          await authenticationDataSource.signIn(email:testEmail,password: testPassword);
 
       verify(await mockFirebaseAuth.signInWithEmailAndPassword(
               email: testEmail, password: testPassword))
@@ -56,7 +53,7 @@ void main() {
           .thenAnswer((_) async => expectedUserCredential);
 
       final userCredential =
-          await authenticationDataSource.createAccount(testEmail, testPassword);
+          await authenticationDataSource.createAccount(email:testEmail,password: testPassword);
 
       verify(await mockFirebaseAuth.createUserWithEmailAndPassword(
               email: testEmail, password: testPassword))

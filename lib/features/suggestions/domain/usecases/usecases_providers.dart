@@ -3,30 +3,31 @@ import 'package:home_activity_sugestions/features/suggestions/data/data_provider
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/add_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/delete_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_list.dart';
+import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
 
-get suggestionListProvider => Provider((ref) {
-      final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestionList(repository);
-    });
-get addSuggestionProvider => Provider((ref) {
+Provider<AddSuggestion> get addSuggestionProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return AddSuggestion(repository);
     });
-get updateSuggestionsProvider => Provider((ref) {
+
+Provider<UpdateSuggestion> get updateSuggestionsProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return UpdateSuggestion(repository);
     });
-get deleteSuggestionProvider => Provider((ref) {
+
+Provider<DeleteSuggestion> get deleteSuggestionProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return DeleteSuggestion(repository);
     });
-get getSuggestionProvider => Provider((ref) {
+
+Provider<GetSuggestion> get getSuggestionProvider => Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
       return GetSuggestion(repository);
     });
-get getSnapshotProvider => Provider((ref) {
+
+Provider<GetSuggestionStream> get getSuggestionsStreamProvider =>
+    Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestionList(repository);
+      return GetSuggestionStream(repository);
     });

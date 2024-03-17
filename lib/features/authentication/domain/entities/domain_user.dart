@@ -1,9 +1,12 @@
-class DomainUser {
-  final String id;
-  String email;
+import 'package:equatable/equatable.dart';
 
-  DomainUser({
-    required this.id,
-    required this.email,
-  });
+class DomainUser extends Equatable{
+  final String id;
+  final String email;
+
+  const DomainUser({required this.id, required this.email});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, email];
 }

@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:home_activity_sugestions/core/result.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_sugestions/features/authentication/domain/entities/domain_user.dart';
 
 abstract class AuthenticationRepository {
-  Future<void> signIn(String email, String password);
-  Future<void> createAccount(String email, String password);
+  Future<DomainUser> signIn({required String email, required String password});
+  Future<DomainUser> createAccount({required String email, required String password});
   Future<void> logout();
 }
