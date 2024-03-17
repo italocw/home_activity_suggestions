@@ -6,8 +6,8 @@ import '../../domain/entities/auth_screen_data.dart';
 import 'auth_screen_mode_provider.dart';
 
 StateProvider<AuthScreenData> get authScreenDataProvider => StateProvider((ref) {
-      final appLocalizations = ref.watch(appLocalizationsProvider);
-      final AuthScreenMode authScreenMode = ref.watch(authScreenModeProvider);
+      final appLocalizations = ref.read(appLocalizationsProvider);
+      final AuthScreenMode authScreenMode = ref.read(authScreenModeNotifierProvider);
 
       String topMessage;
       String submitButtonText;

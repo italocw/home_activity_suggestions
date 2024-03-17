@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_sugestions/core/color_schemes.g.dart';
-import 'package:home_activity_sugestions/features/authentication/presentation/screens/auth_screen.dart';
 import 'package:home_activity_sugestions/features/suggestions/presentation/screens/categories_screen.dart';
 import 'package:home_activity_sugestions/features/suggestions/presentation/screens/splash_screen.dart';
+import 'features/authentication/presentation/components/screens/auth_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

@@ -15,7 +15,7 @@ final authScreenNotifierProvider =
   final signIn = ref.read(signInProvider);
   final createAccount = ref.read(createAccountProvider);
   final logout = ref.read(logoutProvider);
-  final switchAuthScreenMode = ref.read(switchAuthScreenModeProvider);
+  final switchAuthScreenMode = ref.watch(switchAuthScreenModeProvider);
   return AuthScreenStateNotifier(
       authScreenData, signIn, createAccount, logout, switchAuthScreenMode);
 });
@@ -51,5 +51,8 @@ class AuthScreenStateNotifier extends StateNotifier<AuthScreenData> {
 
   Future<void> logout() => _logout();
 
-  void switchAuthScreenMode() => _switchAuthScreenMode();
+  void switchAuthScreenMode() {
+   print("TESTE");
+    _switchAuthScreenMode;
+  }
 }
