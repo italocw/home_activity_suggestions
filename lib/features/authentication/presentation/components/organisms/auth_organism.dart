@@ -12,8 +12,8 @@ class AuthOrganism extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
-    final screenNotifier = ref.read(authScreenNotifierProvider.notifier);
-    final screenData = ref.read(authScreenNotifierProvider);
+    final screenNotifier = ref.watch(authScreenNotifierProvider.notifier);
+    final screenData = ref.watch(authScreenNotifierProvider);
 
     final email = ref.read(emailProvider);
     final password = ref.read(passwordProvider);

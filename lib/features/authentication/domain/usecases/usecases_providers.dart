@@ -12,7 +12,8 @@ import 'logout.dart';
 
 Provider<SwitchAuthScreenMode> get switchAuthScreenModeProvider =>
     Provider((ref) {
-      return SwitchAuthScreenMode();
+      final authScreenModeNotifier = ref.read(authScreenModeNotifierProvider.notifier);
+      return SwitchAuthScreenMode(authScreenModeNotifier: authScreenModeNotifier);
     });
 
 Provider<AuthenticationDataSource> get authenticationDataSourceProvider =>
