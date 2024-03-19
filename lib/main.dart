@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_sugestions/core/color_schemes.g.dart';
-import 'package:home_activity_sugestions/features/suggestions/presentation/screens/categories_screen.dart';
-import 'package:home_activity_sugestions/features/suggestions/presentation/screens/splash_screen.dart';
-import 'features/authentication/presentation/components/screens/auth_screen.dart';
+import 'package:home_activity_sugestions/core/home_screen_provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,29 +24,18 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: 'Sugestões de atividades caseiras',
-      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme  ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SplashScreen();
-          }
-
-          return snapshot.hasData
-              ? const CategoriesScreen()
-              : const AuthScreen();
-        },
-      ),
+      home: ref.watch(homeScreenProvider),
     );
   }
 }

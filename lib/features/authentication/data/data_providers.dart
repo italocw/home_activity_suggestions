@@ -5,22 +5,22 @@ import 'package:home_activity_sugestions/features/authentication/data/repositori
 
 import '../domain/repositories/authentication_repository.dart';
 
-Provider<FirebaseAuth> get firebaseAuthProvider => Provider((ref) {
+final Provider<FirebaseAuth> firebaseAuthProvider = Provider((ref) {
       return FirebaseAuth.instance;
     });
 
-Provider<AuthenticationDataSource> get authenticationDatasourceProvider =>
+final Provider<AuthenticationDataSource> authenticationDatasourceProvider =
    Provider ((ref) {
       final firebaseAuth = ref.read(firebaseAuthProvider);
       return AuthenticationDataSource(firebaseAuth: firebaseAuth);
     });
 
-StreamProvider<User?> get userStreamProvider => StreamProvider<User?>((ref) {
+final StreamProvider<User?>  userStreamProvider = StreamProvider<User?>((ref) {
       final firebaseAuth = ref.read(firebaseAuthProvider);
       return firebaseAuth.authStateChanges();
     });
 
-Provider<AuthenticationRepository> get authRepositoryProvider =>
+final Provider<AuthenticationRepository> authRepositoryProvider =
     Provider((ref) {
       final authenticationDatasource =
           ref.read(authenticationDatasourceProvider);

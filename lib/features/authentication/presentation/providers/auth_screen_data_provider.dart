@@ -5,30 +5,32 @@ import '../../../../core/providers.dart';
 import '../../domain/entities/auth_screen_data.dart';
 import 'auth_screen_mode_provider.dart';
 
-StateProvider<AuthScreenData> get authScreenDataProvider => StateProvider((ref) {
+final StateProvider<AuthOrganismDynamicData>  authScreenDataProvider = StateProvider((ref) {
       final appLocalizations = ref.read(appLocalizationsProvider);
-      final AuthScreenMode authScreenMode = ref.watch(authScreenModeNotifierProvider);
+      final AuthMode authMode = ref.watch(authModeNotifierProvider);
 
       String topMessage;
       String submitButtonText;
       String changeScreenModeButtonText;
 
-      switch (authScreenMode) {
-        case AuthScreenMode.signIn:
+      switch (authMode) {
+        case AuthMode.signIn:
           topMessage = appLocalizations.wellcome_message;
           submitButtonText = appLocalizations.enter;
           changeScreenModeButtonText =
               appLocalizations.dont_have_account_message;
-        case AuthScreenMode.createAccount:
+          break;
+        case AuthMode.createAccount:
           topMessage = appLocalizations.create_account_message;
           submitButtonText = appLocalizations.create_account;
           changeScreenModeButtonText =
               appLocalizations.already_have_account_message;
+          break;
       }
 
-      return AuthScreenData(
+      return AuthOrganismDynamicData(
           topMessage: topMessage,
           submitButtonText: submitButtonText,
           changeScreenModeButtonText: changeScreenModeButtonText,
-          screenMode: authScreenMode);
+          authMode: authMode);
     });

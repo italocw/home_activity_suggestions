@@ -10,7 +10,8 @@ import 'package:home_activity_sugestions/features/authentication/presentation/pr
 import '../../domain/usecases/logout.dart';
 
 final authScreenNotifierProvider =
-    StateNotifierProvider<AuthScreenStateNotifier, AuthScreenData>((ref) {
+    StateNotifierProvider<AuthScreenStateNotifier, AuthOrganismDynamicData>(
+        (ref) {
   final authScreenData = ref.watch(authScreenDataProvider);
   final signIn = ref.read(signInProvider);
   final createAccount = ref.read(createAccountProvider);
@@ -20,8 +21,8 @@ final authScreenNotifierProvider =
       authScreenData, signIn, createAccount, logout, switchAuthScreenMode);
 });
 
-class AuthScreenStateNotifier extends StateNotifier<AuthScreenData> {
-  AuthScreenStateNotifier(AuthScreenData authScreenData, this._signIn,
+class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
+  AuthScreenStateNotifier(AuthOrganismDynamicData authScreenData, this._signIn,
       this._createAccount, this._logout, this._switchAuthScreenMode)
       : super(authScreenData);
 
@@ -40,10 +41,10 @@ class AuthScreenStateNotifier extends StateNotifier<AuthScreenData> {
 
   Future<DomainUser> submitAuth(
       {required String email, required String password}) {
-    final returnedDomainUser = switch (state.authScreenMode) {
-      AuthScreenMode.createAccount =>
+    final returnedDomainUser = switch (state.authMode) {
+      AuthMode.createAccount =>
         _doCreateAccount(email: email, password: password),
-      AuthScreenMode.signIn => _doSignIn(email: email, password: password)
+      AuthMode.signIn => _doSignIn(email: email, password: password)
     };
 
     return returnedDomainUser;
@@ -52,6 +53,6 @@ class AuthScreenStateNotifier extends StateNotifier<AuthScreenData> {
   Future<void> logout() => _logout();
 
   void switchAuthScreenMode() {
-       _switchAuthScreenMode();
+    _switchAuthScreenMode();
   }
 }

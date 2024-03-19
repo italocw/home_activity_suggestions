@@ -17,7 +17,7 @@ class _PasswordInputState extends ConsumerState<PasswordInput> {
     return TextFormField(
       obscureText: true,
       maxLength: maxPasswordLength,
-      decoration: const InputDecoration(labelText: 'Password'),
+      decoration: const InputDecoration(labelText: 'Password', counterText: ""),
       validator: (enteredPassword) {
         if (enteredPassword == null || enteredPassword.trim().length <= 6) {
           return 'Deve ter entre 6 e $maxPasswordLength caracteres.';

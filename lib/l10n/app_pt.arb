@@ -1,6 +1,8 @@
 {
     "title": "Sugestões de atividades caseiras",
     "enter": "Entrar",
+    "email": "Email",
+    "password": "Senha",
     "create_account": "Criar conta",
     "wellcome_message": "Informe os dados para entrar",
     "create_account_message": "Informe os dados para criar uma nova conta",

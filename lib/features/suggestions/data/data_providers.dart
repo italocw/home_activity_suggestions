@@ -6,21 +6,21 @@ import 'package:home_activity_sugestions/features/authentication/data/user_mappe
 import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_sugestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
 
-Provider<FirebaseFirestore> get firebaseFirestoreProvider => Provider((ref) {
+final Provider<FirebaseFirestore> firebaseFirestoreProvider = Provider((ref) {
       return FirebaseFirestore.instance;
     });
 
-Provider<FirebaseAuth> get firebaseAuthProvider => Provider((ref) {
+final Provider<FirebaseAuth>  firebaseAuthProvider = Provider((ref) {
       return FirebaseAuth.instance;
     });
 
-Provider<SuggestionDataSource> get suggestionDatasourceProvider =>
+final Provider<SuggestionDataSource> suggestionDatasourceProvider =
     Provider((ref) {
       final firebaseFirestore = ref.read(firebaseFirestoreProvider);
       return SuggestionDataSource(firebaseFirestore: firebaseFirestore);
     });
 
-Provider<SuggestionRepositoryImpl> get suggestionRepositoryProvider =>
+final Provider<SuggestionRepositoryImpl> suggestionRepositoryProvider =
     Provider((ref) {
       final firebaseAuth = ref.read(firebaseAuthProvider);
       final suggestionDatasource = ref.read(suggestionDatasourceProvider);

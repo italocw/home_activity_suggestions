@@ -66,4 +66,5 @@ const darkColorScheme = ColorScheme(
   surfaceTint: Color(0xFFEFC048),
   outlineVariant: Color(0xFF4D4639),
   scrim: Color(0xFF000000),
+
 );

@@ -10,19 +10,19 @@ import 'package:home_activity_sugestions/features/authentication/domain/usecases
 import '../../presentation/providers/auth_screen_mode_provider.dart';
 import 'logout.dart';
 
-Provider<SwitchAuthScreenMode> get switchAuthScreenModeProvider =>
+final Provider<SwitchAuthScreenMode>  switchAuthScreenModeProvider =
     Provider((ref) {
-      final authScreenModeNotifier = ref.read(authScreenModeNotifierProvider.notifier);
+      final authScreenModeNotifier = ref.read(authModeNotifierProvider.notifier);
       return SwitchAuthScreenMode(authScreenModeNotifier: authScreenModeNotifier);
     });
 
-Provider<AuthenticationDataSource> get authenticationDataSourceProvider =>
+final Provider<AuthenticationDataSource>  authenticationDataSourceProvider =
     Provider((ref) {
       final firebaseAuth = ref.read(firebaseAuthProvider);
       return AuthenticationDataSource(firebaseAuth: firebaseAuth);
     });
 
-Provider<AuthenticationRepository> get authenticationRepositoryProvider =>
+final Provider<AuthenticationRepository>  authenticationRepositoryProvider =
     Provider((ref) {
       final authenticationDataSource =
           ref.read(authenticationDataSourceProvider);
@@ -30,19 +30,19 @@ Provider<AuthenticationRepository> get authenticationRepositoryProvider =>
           authenticationDataSource: authenticationDataSource);
     });
 
-Provider<CreateAccount> get createAccountProvider => Provider((ref) {
+final Provider<CreateAccount>  createAccountProvider = Provider((ref) {
       final authenticationRepository =
           ref.read(authenticationRepositoryProvider);
       return CreateAccount(authenticationRepository: authenticationRepository);
     });
 
-Provider<SignIn> get signInProvider => Provider((ref) {
+final Provider<SignIn>  signInProvider = Provider((ref) {
       final authenticationRepository =
           ref.read(authenticationRepositoryProvider);
       return SignIn(authenticationRepository: authenticationRepository);
     });
 
-Provider<Logout> get logoutProvider => Provider((ref) {
+final Provider<Logout>  logoutProvider = Provider((ref) {
       final authenticationRepository =
           ref.read(authenticationRepositoryProvider);
       return Logout(authenticationRepository: authenticationRepository);

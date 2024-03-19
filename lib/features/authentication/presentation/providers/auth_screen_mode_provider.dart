@@ -1,21 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/auth_screen_data.dart';
-import '../../domain/usecases/switch_auth_screen_mode.dart';
 
 final StateNotifierProvider<AuthScreenModeNotifier,
-    AuthScreenMode> authScreenModeNotifierProvider =
+    AuthMode> authModeNotifierProvider =
 StateNotifierProvider((ref) {
-  return AuthScreenModeNotifier(AuthScreenMode.signIn);
+  return AuthScreenModeNotifier(AuthMode.signIn);
 });
 
-class AuthScreenModeNotifier extends StateNotifier<AuthScreenMode> {
+class AuthScreenModeNotifier extends StateNotifier<AuthMode> {
   AuthScreenModeNotifier(super.state);
 
   void switchMode() {
-    final newMode = state == AuthScreenMode.signIn
-        ? AuthScreenMode.createAccount
-        : AuthScreenMode.signIn;
+    final newMode = state == AuthMode.signIn
+        ? AuthMode.createAccount
+        : AuthMode.signIn;
     state = newMode;
   }
 }

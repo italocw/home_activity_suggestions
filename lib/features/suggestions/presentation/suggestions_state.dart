@@ -6,7 +6,7 @@ import 'package:home_activity_sugestions/features/suggestions/domain/usecases/ge
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
 import 'package:home_activity_sugestions/features/suggestions/domain/usecases/usecases_providers.dart';
 
-get suggestionsProvider => Provider((ref) {
+final  suggestionsProvider = Provider((ref) {
       final addSuggestion = ref.read(addSuggestionProvider);
       final deleteSuggestion = ref.read(deleteSuggestionProvider);
       final updateSuggestion = ref.read(updateSuggestionsProvider);
