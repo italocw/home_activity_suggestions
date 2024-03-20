@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
-import 'package:home_activity_sugestions/features/authentication/data/repositories/authentication_repository_impl.dart';
+import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_suggestions/features/authentication/data/repositories/authentication_repository_impl.dart';
 
 import '../domain/repositories/authentication_repository.dart';
 

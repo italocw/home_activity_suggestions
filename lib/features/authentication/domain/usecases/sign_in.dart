@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 
 import '../entities/domain_user.dart';
 

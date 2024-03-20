@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
-import 'package:home_activity_sugestions/features/authentication/data/repositories/authentication_repository_impl.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/entities/domain_user.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_suggestions/features/authentication/data/repositories/authentication_repository_impl.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

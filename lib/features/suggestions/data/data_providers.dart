@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/data/user_mappers.dart';
+import 'package:home_activity_suggestions/features/authentication/data/user_mappers.dart';
 
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
+import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
+import 'package:home_activity_suggestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
 
 final Provider<FirebaseFirestore> firebaseFirestoreProvider = Provider((ref) {
       return FirebaseFirestore.instance;

@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/entities/auth_screen_data.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/entities/domain_user.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/usecases/create_account.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/usecases/sign_in.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/usecases/usecases_providers.dart';
-import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_data_provider.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/entities/auth_screen_data.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/usecases/create_account.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/usecases/sign_in.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/usecases/usecases_providers.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_data_provider.dart';
 
 import '../../domain/usecases/logout.dart';
 

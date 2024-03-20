@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
 import '../../../../core/providers.dart';
 import '../../domain/entities/auth_screen_data.dart';

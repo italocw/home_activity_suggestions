@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
-import 'package:home_activity_sugestions/features/authentication/data/user_mappers.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_suggestions/features/authentication/data/user_mappers.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 
 import '../../domain/entities/domain_user.dart';
 

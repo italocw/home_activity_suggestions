@@ -3,7 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'package:home_activity_sugestions/config.dart';
+import 'package:home_activity_suggestions/config.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -64,6 +64,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '770465677197',
     projectId: 'home-activity-suggestions',
     storageBucket: 'home-activity-suggestions.appspot.com',
-    iosBundleId: 'com.example.homeActivitySugestions',
+    iosBundleId: 'com.example.homeActivitySuggestions',
   );
 }

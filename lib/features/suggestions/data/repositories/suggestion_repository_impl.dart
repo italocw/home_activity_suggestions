@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:home_activity_sugestions/core/result.dart';
-import 'package:home_activity_sugestions/features/authentication/domain/entities/domain_user.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/datasource/suggestion_datasource.dart';
-import 'package:home_activity_sugestions/features/suggestions/data/suggestion_mapper.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/repositories/suggestion_repository.dart';
+import 'package:home_activity_suggestions/core/result.dart';
+import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
+import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
+import 'package:home_activity_suggestions/features/suggestions/data/suggestion_mapper.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class SuggestionRepositoryImpl implements SuggestionRepository {
   final SuggestionDataSource _dataSource;

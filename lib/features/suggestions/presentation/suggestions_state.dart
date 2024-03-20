@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/add_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/delete_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/update_suggestion.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/usecases/usecases_providers.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/add_suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/delete_suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/update_suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/usecases_providers.dart';
 
 final  suggestionsProvider = Provider((ref) {
       final addSuggestion = ref.read(addSuggestionProvider);

@@ -1,4 +1,4 @@
-import 'package:home_activity_sugestions/features/suggestions/domain/repositories/suggestion_repository.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class DeleteSuggestion {
   final SuggestionRepository repository;

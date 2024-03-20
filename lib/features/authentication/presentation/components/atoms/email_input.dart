@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_sugestions/features/authentication/presentation/providers/auth_screen_state.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
 import '../../../../../core/providers.dart';
 import '../../providers/auth_input_fields_providers.dart';

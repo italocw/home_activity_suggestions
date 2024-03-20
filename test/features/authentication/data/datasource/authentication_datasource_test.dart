@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:home_activity_sugestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

@@ -1,4 +1,4 @@
-package com.example.home_activity_sugestions
+package com.example.home_activity_suggestions
 
 import io.flutter.embedding.android.FlutterActivity
 

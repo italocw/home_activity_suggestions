@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/category.dart';
-import 'package:home_activity_sugestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/category.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 
 extension SuggetionsExtension on Suggestion {
   Map<String, String> toMap() =>
