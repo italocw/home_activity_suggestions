@@ -7,6 +7,7 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/usecases_providers.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_data_provider.dart';
 
+import '../../../../core/result.dart';
 import '../../domain/usecases/logout.dart';
 
 final authScreenNotifierProvider =
@@ -31,15 +32,15 @@ class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
   final Logout _logout;
   final SwitchAuthScreenMode _switchAuthScreenMode;
 
-  Future<DomainUser> _doSignIn(
+  Future<Result<DomainUser>>_doSignIn(
           {required String email, required String password}) =>
       _signIn(email: email, password: password);
 
-  Future<DomainUser> _doCreateAccount(
+  Future<Result<DomainUser>>_doCreateAccount(
           {required String email, required String password}) =>
       _createAccount(email: email, password: password);
 
-  Future<DomainUser> submitAuth(
+  Future<Result<DomainUser>> submitAuth(
       {required String email, required String password}) {
     final returnedDomainUser = switch (state.authMode) {
       AuthMode.createAccount =>

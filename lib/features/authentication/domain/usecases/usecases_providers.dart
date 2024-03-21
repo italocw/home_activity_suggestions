@@ -16,34 +16,20 @@ final Provider<SwitchAuthScreenMode>  switchAuthScreenModeProvider =
       return SwitchAuthScreenMode(authScreenModeNotifier: authScreenModeNotifier);
     });
 
-final Provider<AuthenticationDataSource>  authenticationDataSourceProvider =
-    Provider((ref) {
-      final firebaseAuth = ref.read(firebaseAuthProvider);
-      return AuthenticationDataSource(firebaseAuth: firebaseAuth);
-    });
-
-final Provider<AuthenticationRepository>  authenticationRepositoryProvider =
-    Provider((ref) {
-      final authenticationDataSource =
-          ref.read(authenticationDataSourceProvider);
-      return AuthenticationRepositoryImpl(
-          authenticationDataSource: authenticationDataSource);
-    });
-
 final Provider<CreateAccount>  createAccountProvider = Provider((ref) {
       final authenticationRepository =
-          ref.read(authenticationRepositoryProvider);
+          ref.read(authRepositoryProvider);
       return CreateAccount(authenticationRepository: authenticationRepository);
     });
 
 final Provider<SignIn>  signInProvider = Provider((ref) {
       final authenticationRepository =
-          ref.read(authenticationRepositoryProvider);
+          ref.read(authRepositoryProvider);
       return SignIn(authenticationRepository: authenticationRepository);
     });
 
 final Provider<Logout>  logoutProvider = Provider((ref) {
       final authenticationRepository =
-          ref.read(authenticationRepositoryProvider);
+          ref.read(authRepositoryProvider);
       return Logout(authenticationRepository: authenticationRepository);
     });

@@ -15,7 +15,7 @@ final StateProvider<AuthOrganismDynamicData>  authScreenDataProvider = StateProv
 
       switch (authMode) {
         case AuthMode.signIn:
-          topMessage = appLocalizations.wellcome_message;
+          topMessage = appLocalizations.welcome_message;
           submitButtonText = appLocalizations.enter;
           changeScreenModeButtonText =
               appLocalizations.dont_have_account_message;

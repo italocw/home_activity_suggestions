@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-/*
+
 void main() {
   late FakeFirebaseFirestore fakeFirebaseFirestore;
   late Map<String, dynamic> testSuggestionData;
@@ -21,66 +22,42 @@ void main() {
   });
 
   group('Data source tests', () {
-    test('Should retrieve expected suggestion documents from snapshots',
-        (() async {
-      await testCollection.doc().set(testSuggestionData);
-      final QuerySnapshot querySnapshot = await testCollection.get();
-      final expectedResult = querySnapshot.docs;
-
-      final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
-
-      remoteDataSource.snapshots.listen((event) {
-        assertSuggestionDocumentListEquality(event.docs, expectedResult);
-      });
-    }));
-
-    test('Should retrieve expected suggestion documents', (() async {
-      await testCollection.doc().set(testSuggestionData);
-      final QuerySnapshot querySnapshot = await testCollection.get();
-      final expectedResult = querySnapshot.docs;
-
-      final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
-
-      final getAllResult = await remoteDataSource.getAllSuggestionDocuments();
-
-      assertSuggestionDocumentListEquality(getAllResult, expectedResult);
-    }));
 
     test('Should return document suggestions empty list', (() async {
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+      SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
 
-      final getAllResult = await remoteDataSource.getAllSuggestionDocuments();
-
-      expect(getAllResult, isEmpty);
+      remoteDataSource.snapshots.listen((event) {
+        expect(event.docs, isEmpty);
+      });
     }));
 
-    test('Document suggestion should be added', (() async {
+   test('Document suggestion should be added', (() async {
       final SuggestionDataSource remoteDataSource =
           SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
 
       await remoteDataSource.add(testSuggestionData);
 
-      final getAllResult = await remoteDataSource.getAllSuggestionDocuments();
-
-      assertReturnedSuggestionSingularityAndEquality(
-          getAllResult, testSuggestionData);
+      testCollection.snapshots().listen((event) {
+        expect(event.docs.length, 1);
+        final suggestionDocument = event.docs.first;
+        expect(suggestionDocument.data(), testSuggestionData);
+      });
     }));
 
     test('Document suggestion should be deleted', (() async {
       await testCollection.doc().set(testSuggestionData);
       final QuerySnapshot querySnapshot = await testCollection.get();
-      final docId = querySnapshot.docs.first.id;
+      final documentId = querySnapshot.docs.first.id;
 
       final SuggestionDataSource remoteDataSource =
           SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
 
-      await remoteDataSource.delete(docId);
-      final documentResult = await remoteDataSource.getById(docId);
+      await remoteDataSource.delete(documentId);
+      final documentSearchResult =   await  testCollection.doc(documentId).get();
 
-      expect(documentResult.exists, false);
+      expect(documentSearchResult.exists, false);
+
     }));
 
     test('Document suggestion should be updated', (() async {
@@ -94,12 +71,12 @@ void main() {
           SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
 
       await remoteDataSource.update(documentId, testSuggestionData);
-      final documentResult = await remoteDataSource.getById(documentId);
+      final updatedDocument =   await  testCollection.doc(documentId).get();
 
-      expect(documentResult.data(), testSuggestionData);
+      expect(updatedDocument.data(), testSuggestionData);
     }));
 
-    test('Suggestion should be retrived', (() async {
+    test('Suggestion should be retrieved', (() async {
       await testCollection.doc().set(testSuggestionData);
 
       final QuerySnapshot querySnapshot = await testCollection.get();
@@ -117,25 +94,3 @@ void main() {
   });
 }
 
-void assertSuggestionDocumentListEquality(
-    List<DocumentSnapshot<Object?>> documentsResultsUnderTest,
-    List<DocumentSnapshot<Object?>> expectedResult) {
-  expect(documentsResultsUnderTest.length, equals(expectedResult.length));
-
-  documentsResultsUnderTest.asMap().forEach((index, getAllDocument) {
-    final expectedDocument = expectedResult[index];
-
-    expect(getAllDocument.id, equals(expectedDocument.id));
-    expect(getAllDocument.data(), equals(expectedDocument.data()));
-  });
-}
-
-void assertReturnedSuggestionSingularityAndEquality(
-    List<DocumentSnapshot<Object?>> documentsResultsUnderTest,
-    Map<String, dynamic> suggestionMap) {
-  expect(documentsResultsUnderTest.length, equals(1));
-
-  final foundResult = documentsResultsUnderTest.first;
-  expect(foundResult.data(), suggestionMap);
-}
-*/

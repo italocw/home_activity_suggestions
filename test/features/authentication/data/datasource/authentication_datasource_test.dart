@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
+import 'package:home_activity_suggestions/features/authentication/data/firebase_auth_error_codes.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-
 import 'authentication_datasource_test.mocks.dart';
-
 
 @GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
@@ -24,7 +22,7 @@ void main() {
   });
 
   group('Authentication data source tests', () {
-    test('Should  successfully sign in with given email and password',
+    test('Signing in with the provided email and password should succeed',
         (() async {
       authenticationDataSource =
           AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
@@ -33,8 +31,8 @@ void main() {
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => expectedUserCredential);
 
-      final userCredential =
-          await authenticationDataSource.signIn(email:testEmail,password: testPassword);
+      final userCredential = await authenticationDataSource.signIn(
+          email: testEmail, password: testPassword);
 
       verify(await mockFirebaseAuth.signInWithEmailAndPassword(
               email: testEmail, password: testPassword))
@@ -43,7 +41,27 @@ void main() {
       expect(userCredential, expectedUserCredential);
     }));
 
-    test('Should successfully create user with given email and password',
+    test(
+        'Attempting to sign in with the provided email and password should throw a FirebaseAuthException',
+        (() async {
+      authenticationDataSource =
+          AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
+      final expectedException = FirebaseAuthException(
+          code: SignInWithEmailAndPasswordErrorCodes.userNotFound);
+      when(mockFirebaseAuth.signInWithEmailAndPassword(
+              email: testEmail, password: testPassword))
+          .thenAnswer((_) async => throw expectedException);
+
+      try {
+        await authenticationDataSource.signIn(
+            email: testEmail, password: testPassword);
+
+            } catch (exception) {
+        expect(exception, expectedException);
+      }
+    }));
+
+    test('Create account with the provided email and password should succeed.',
         (() async {
       authenticationDataSource =
           AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
@@ -52,8 +70,8 @@ void main() {
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => expectedUserCredential);
 
-      final userCredential =
-          await authenticationDataSource.createAccount(email:testEmail,password: testPassword);
+      final userCredential = await authenticationDataSource.createAccount(
+          email: testEmail, password: testPassword);
 
       verify(await mockFirebaseAuth.createUserWithEmailAndPassword(
               email: testEmail, password: testPassword))
@@ -61,6 +79,26 @@ void main() {
 
       expect(userCredential, expectedUserCredential);
     }));
+
+    test(
+        'Attempting to create account in the provided email and password should throw a FirebaseAuthException',
+        (() async {
+          authenticationDataSource =
+              AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
+          final expectedException = FirebaseAuthException(
+              code: CreateUserWithEmailAndPasswordErrorCodes.emailAlreadyInUse);
+          when(mockFirebaseAuth.createUserWithEmailAndPassword(
+              email: testEmail, password: testPassword))
+              .thenAnswer((_) async => throw expectedException);
+
+          try {
+            await authenticationDataSource.createAccount(
+                email: testEmail, password: testPassword);
+
+          } catch (exception) {
+            expect(exception, expectedException);
+          }
+        }));
 
     test('Should call firebase auth signOut method', (() async {
       authenticationDataSource =

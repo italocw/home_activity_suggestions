@@ -4,8 +4,15 @@
     "email": "Email",
     "password": "Senha",
     "create_account": "Criar conta",
-    "wellcome_message": "Informe os dados para entrar",
+    "welcome_message": "Informe os dados para entrar",
     "create_account_message": "Informe os dados para criar uma nova conta",
     "dont_have_account_message": "Ainda não possuo uma conta",
-    "already_have_account_message": "Já possuo uma conta"
+    "already_have_account_message": "Já possuo uma conta",
+
+    "invalid_email": "O email digitado é inválido",
+    "user_disabled": "Usuário está desabilitado",
+    "user_not_found": "Usuário não encontrado",
+    "invalid_credentials": "Dados informados não estão corretos",
+    "email_already_in_use": "Email já está em uso",
+    "weak_password": "Senha fraca"
 }

@@ -1,7 +1,9 @@
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 
+import '../../../../core/result.dart';
+
 abstract class AuthenticationRepository {
-  Future<DomainUser> signIn({required String email, required String password});
-  Future<DomainUser> createAccount({required String email, required String password});
+  Future<Result<DomainUser>> signIn({required String email, required String password});
+  Future<Result<DomainUser>>  createAccount({required String email, required String password});
   Future<void> logout();
 }
