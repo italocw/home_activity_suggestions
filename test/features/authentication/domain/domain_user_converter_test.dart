@@ -23,7 +23,7 @@ void main() {
   });
 
   group('Domain User Converter tests', () {
-    test('Should return expected domain user from Firebase User', (() async {
+    test('Should return expected non null domain user from Firebase User', (() async {
       when(mockUser.email).thenReturn(testEmail);
       when(mockUser.uid).thenReturn(testId);
 
@@ -32,7 +32,7 @@ void main() {
       expect(result, expectedDomainUser);
     }));
 
-    test('Should return expected domain user from Firebase User Credential',
+    test('Should return expected non null domain user from Firebase User Credential',
         (() async {
       when(mockUser.email).thenReturn(testEmail);
       when(mockUser.uid).thenReturn(testId);
@@ -42,5 +42,16 @@ void main() {
       final result =testDomainUserConverter.fromUserCredential(userCredential: mockUserCredential);
       expect(result, expectedDomainUser);
     }));
+
+    test('Should return null domain user from Firebase User', (() async {
+      final result = testDomainUserConverter.fromFirebaseUser(firebaseUser: null);
+      expect(result, null);
+    }));
+
+    test('Should return null domain user from Firebase User Credential',
+        (() async {
+          final result =testDomainUserConverter.fromUserCredential(userCredential: null);
+          expect(result, null);
+        }));
   });
 }

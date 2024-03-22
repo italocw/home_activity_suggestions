@@ -30,6 +30,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     return Future.value(result);
   }
 
+  get currentUser => _domainUserConverter.fromFirebaseUser(firebaseUser: _dataSource.currentUser);
+
   @override
   Future<Result<DomainUser>> createAccount(
       {required String email, required String password}) async {

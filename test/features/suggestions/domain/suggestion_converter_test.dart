@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
-import 'package:home_activity_suggestions/features/suggestions/data/suggestion_mapper.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/category.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-/*
+
 @GenerateMocks([DocumentSnapshot<Object?>])
 void main() {
-  final Category booksCategory =
+  /* final Category booksCategory =
       categories.firstWhere((category) => category.name == 'Books');
 
   final Suggestion suggestion = Suggestion(
@@ -61,5 +60,5 @@ void main() {
       expect(suggestionMapResult, expectedResult);
     }));
   });
-}
 */
+}

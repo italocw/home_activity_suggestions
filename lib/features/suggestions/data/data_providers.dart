@@ -5,6 +5,7 @@ import 'package:home_activity_suggestions/features/authentication/data/data_prov
 
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/suggestion_converter.dart';
 
 final Provider<FirebaseFirestore> firebaseFirestoreProvider = Provider((ref) {
       return FirebaseFirestore.instance;
@@ -20,13 +21,18 @@ final Provider<SuggestionDataSource> suggestionDatasourceProvider =
       return SuggestionDataSource(firebaseFirestore: firebaseFirestore);
     });
 
+final Provider<SuggestionConverter> suggestionConverterProvider =
+Provider ((ref) {
+  return SuggestionConverter();
+});
+
+
 final Provider<SuggestionRepositoryImpl> suggestionRepositoryProvider =
     Provider((ref) {
       final domainUserConverter = ref.read(domainUserConverterProvider);
-      final firebaseAuth = ref.read(firebaseAuthProvider);
       final domainUser = domainUserConverter.fromFirebaseUser(firebaseUser: firebaseAuth.currentUser!);
       final suggestionDatasource = ref.read(suggestionDatasourceProvider);
-
+final  suggestionConverter = ref
       return SuggestionRepositoryImpl(
           suggestionDatasource, domainUser);
     });

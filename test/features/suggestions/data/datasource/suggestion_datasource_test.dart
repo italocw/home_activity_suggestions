@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -29,6 +28,7 @@ void main() {
         expect(event.docs, isEmpty);
       });
     }));
+
 
     test('Should return document suggestions non empty list', (() async {
       await testCollection.doc().set(testSuggestionData);
