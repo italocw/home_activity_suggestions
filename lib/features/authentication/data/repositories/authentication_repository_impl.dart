@@ -19,26 +19,32 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<Result<DomainUser>> signIn(
-      {required String email, required String password})  async {
+      {required String email, required String password}) async {
     late Result<DomainUser> result;
     try {
-     final userCredential = await   _dataSource.signIn(email: email, password: password);
-     result = Success(_domainUserConverter.fromUserCredential(userCredential: userCredential));
+      final userCredential =
+          await _dataSource.signIn(email: email, password: password);
+      result = Success(_domainUserConverter.fromUserCredential(
+          userCredential: userCredential)!);
     } on Exception catch (exception) {
       result = Failure(exception);
     }
     return Future.value(result);
   }
 
-  get currentUser => _domainUserConverter.fromFirebaseUser(firebaseUser: _dataSource.currentUser);
+  @override
+  get currentDomainUser => _domainUserConverter.fromFirebaseUser(
+      firebaseUser: _dataSource.currentUser);
 
   @override
   Future<Result<DomainUser>> createAccount(
       {required String email, required String password}) async {
     late Result<DomainUser> result;
     try {
-      final userCredential = await   _dataSource.createAccount(email: email, password: password);
-      result = Success(_domainUserConverter.fromUserCredential(userCredential: userCredential));
+      final userCredential =
+          await _dataSource.createAccount(email: email, password: password);
+      result = Success(_domainUserConverter.fromUserCredential(
+          userCredential: userCredential)!);
     } on Exception catch (exception) {
       result = Failure(exception);
     }
