@@ -8,10 +8,11 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'authentication_datasource_test.mocks.dart';
 
-@GenerateMocks([FirebaseAuth, UserCredential])
+@GenerateMocks([FirebaseAuth, UserCredential, User])
 void main() {
   late MockFirebaseAuth mockFirebaseAuth;
   late MockUserCredential mockUserCredential;
+  late MockUser mockUser;
   late AuthenticationDataSource authenticationDataSource;
   const testEmail = "email@email.com";
   const testPassword = "password";
@@ -19,6 +20,7 @@ void main() {
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
     mockUserCredential = MockUserCredential();
+    mockUser  =MockUser();
   });
 
   group('Authentication data source tests', () {
@@ -40,6 +42,31 @@ void main() {
 
       expect(userCredential, expectedUserCredential);
     }));
+
+    test('Should return expected not null current user',
+        (() async {
+          when(mockFirebaseAuth.currentUser)
+              .thenReturn(mockUser);
+
+          authenticationDataSource =
+              AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
+
+          final resultUser = authenticationDataSource.currentUser;
+           expect(resultUser, mockUser);
+        }));
+
+    test('Should return null when try to get current user',
+        (() async {
+          when(mockFirebaseAuth.currentUser)
+              .thenReturn(null);
+
+          authenticationDataSource =
+              AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
+
+          final resultUser = authenticationDataSource.currentUser;
+          expect(resultUser, null);
+        }));
+
 
     test(
         'Attempting to sign in with the provided email and password should throw a FirebaseAuthException',

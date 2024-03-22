@@ -5,6 +5,7 @@ class AuthenticationDataSource {
   AuthenticationDataSource({required FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;
 
+  get currentUser => _firebaseAuth.currentUser;
   Future<UserCredential> createAccount({required String email, required String password}) async =>
       _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -16,4 +17,5 @@ class AuthenticationDataSource {
           email: email, password: password);
 
   Stream<User?> getUserStream() => _firebaseAuth.authStateChanges();
+
 }
