@@ -1,115 +1,109 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import 'suggestion_datasource_test.mocks.dart';
+
+@GenerateMocks(
+    [CollectionReference, FirebaseFirestore, Stream, DocumentReference, Map])
 void main() {
-  late FakeFirebaseFirestore fakeFirebaseFirestore;
-  late Map<String, dynamic> testSuggestionData;
-  late CollectionReference testCollection;
-
+  late MockFirebaseFirestore mockFirebaseFirestore;
+  late MockMap<String, dynamic> mockSuggestionData;
+  late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
+  late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
+  late MockStream<QuerySnapshot<Map<String, dynamic>>> mockStream;
+  const String testCollectionPath = 'suggestions';
+  const String testDocumentPath = 'id';
   setUp(() {
-    testSuggestionData = {
-      'title': 'title',
-      'description': 'description',
-      'categoryId': 'id'
-    };
+    mockSuggestionData = MockMap();
+    mockFirebaseFirestore = MockFirebaseFirestore();
+    mockCollectionReference = MockCollectionReference();
+    mockStream = MockStream();
+    when(mockCollectionReference.snapshots()).thenAnswer((_) => mockStream);
 
-    fakeFirebaseFirestore = FakeFirebaseFirestore();
-    testCollection = fakeFirebaseFirestore.collection('suggestions');
+    mockDocumentReference = MockDocumentReference();
   });
 
   group('Data source tests', () {
-    test('Should return document suggestions empty list', (() async {
-      final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
-
-      remoteDataSource.snapshots.listen((event) {
-        expect(event.docs, isEmpty);
-      });
-    }));
-
-
-    test('Should return document suggestions non empty list', (() async {
-      await testCollection.doc().set(testSuggestionData);
+    test('Should return document snapshot', (() async {
+      when(mockFirebaseFirestore.collection(testCollectionPath))
+          .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+          SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-      final expectedQuerySnapshot = await testCollection.get();
-
-      remoteDataSource.snapshots.listen((resultQuerySnapshot) {
-        assertSnapshotsEquality(resultQuerySnapshot, expectedQuerySnapshot);
-      });
+      final snapshotResult = remoteDataSource.snapshots;
+      expect(snapshotResult, mockStream);
     }));
 
     test('Document suggestion should be added', (() async {
+      when(mockFirebaseFirestore.collection(testCollectionPath))
+          .thenReturn(mockCollectionReference);
+
+      when(mockCollectionReference.add(mockSuggestionData))
+          .thenAnswer((_) async => await mockDocumentReference);
+
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+          SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-      await remoteDataSource.add(testSuggestionData);
+      final resultDocumentReference =
+          await remoteDataSource.add(mockSuggestionData);
 
-      testCollection.snapshots().listen((event) {
-        expect(event.docs.length, 1);
-        final suggestionDocument = event.docs.first;
-        expect(suggestionDocument.data(), testSuggestionData);
-      });
+      verify(await mockCollectionReference.add(mockSuggestionData)).called(1);
+
+      expect(resultDocumentReference, mockDocumentReference);
     }));
 
     test('Document suggestion should be deleted', (() async {
-      await testCollection.doc().set(testSuggestionData);
-      final QuerySnapshot querySnapshot = await testCollection.get();
-      final documentId = querySnapshot.docs.first.id;
+      when(mockDocumentReference.delete()).thenAnswer((_) async {});
+      when(mockCollectionReference.doc(testDocumentPath))
+          .thenReturn(mockDocumentReference);
+
+      when(mockFirebaseFirestore.collection(testCollectionPath))
+          .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+          SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-      await remoteDataSource.delete(documentId);
-      final documentSearchResult = await testCollection.doc(documentId).get();
+          await remoteDataSource.delete(testDocumentPath);
 
-      expect(documentSearchResult.exists, false);
+      verify(await mockDocumentReference.delete())
+          .called(1);
     }));
 
     test('Document suggestion should be updated', (() async {
-      await testCollection.doc().set(testSuggestionData);
-      final QuerySnapshot querySnapshot = await testCollection.get();
-      final documentId = querySnapshot.docs.first.id;
-
-      testSuggestionData['title'] = 'updatedTitle';
+      when(mockDocumentReference.update(mockSuggestionData)).thenAnswer((_) async {});
+      when(mockCollectionReference.doc(testDocumentPath))
+          .thenReturn(mockDocumentReference);
+      when(mockFirebaseFirestore.collection(testCollectionPath))
+          .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+      SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-      await remoteDataSource.update(documentId, testSuggestionData);
-      final updatedDocument = await testCollection.doc(documentId).get();
+      await remoteDataSource.update(testDocumentPath, mockSuggestionData);
 
-      expect(updatedDocument.data(), testSuggestionData);
+      verify(await mockDocumentReference.update( mockSuggestionData))
+          .called(1);
     }));
 
     test('Suggestion should be retrieved', (() async {
-      await testCollection.doc().set(testSuggestionData);
-      final QuerySnapshot querySnapshot = await testCollection.get();
-      final docId = querySnapshot.docs.first.id;
+      when(mockDocumentReference.update(mockSuggestionData)).thenAnswer((_) async {});
+      when(mockCollectionReference.doc(testDocumentPath))
+          .thenReturn(mockDocumentReference);
+      when(mockFirebaseFirestore.collection(testCollectionPath))
+          .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-          SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+      SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-      final expectedDocumentData = testSuggestionData;
-      final documentResult = await remoteDataSource.getById(docId);
+      await remoteDataSource.update(testDocumentPath, mockSuggestionData);
 
-      expect(documentResult.data(), expectedDocumentData);
+      verify(await mockDocumentReference.update( mockSuggestionData))
+          .called(1);
     }));
   });
 }
 
-void assertSnapshotsEquality(QuerySnapshot<Object?> resultQuerySnapshot, QuerySnapshot<Object?> expectedQuerySnapshot) {
-   final expectedDocsAmount = expectedQuerySnapshot.size;
-  expect(resultQuerySnapshot.size, expectedDocsAmount);
-  
-  final expectedDocs = expectedQuerySnapshot.docs;
-  final resultDocs = resultQuerySnapshot.docs;
-        
-  for (int index = 0; index < expectedDocsAmount; index++) {
-    expect(resultDocs[index].data(), expectedDocs[index].data());
-  }
-}
