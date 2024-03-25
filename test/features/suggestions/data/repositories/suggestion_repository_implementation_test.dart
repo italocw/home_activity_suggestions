@@ -1,149 +1,115 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/repositories/suggestion_repository_impl.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/entities/category.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion_category.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/suggestion_converter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'suggestion_repository_implementation_test.mocks.dart';
 
-@GenerateMocks([SuggestionDataSource, DocumentSnapshot<Object?>, DomainUser])
+@GenerateMocks([
+  SuggestionDataSource,
+  Stream,
+  DocumentSnapshot,
+  DomainUser,
+  Suggestion,
+  Map,
+  SuggestionConverter,
+  DocumentReference,
+  QuerySnapshot
+])
 void main() {
+final MockStream<QuerySnapshot> mockStream = MockStream();
   late MockSuggestionDataSource mockDatasource;
-  late MockDomainUser mockDomainUser;
-  late Map<String, dynamic> testSuggestionDataMap;
-  late Suggestion testSuggestion;
-  late MockDocumentSnapshot documentSnapshotMock;
-  final Category testCategory =
-      categories.firstWhere((category) => category.name == 'Books');
-  late List<DocumentSnapshot<Object?>> testDocumentList;
-  const testSuggestionId = 'id';
-  const testUId = 'uid';
-  final testFirebaseAuth =
-      MockFirebaseAuth(signedIn: true, mockUser: MockUser(uid: testUId));
+  late MockQuerySnapshot<Object?> mockQuerySnapshot = MockQuerySnapshot();
+  late MockSuggestionConverter mockSuggestionConverter;
+  final MockDomainUser mockDomainUser = MockDomainUser();
+  late MockMap<String, dynamic>? mockSuggestionMap = MockMap();
+  final MockSuggestion mockSuggestion = MockSuggestion();
+  late MockDocumentSnapshot<Object?> mockDocumentSnapshot =
+      MockDocumentSnapshot();
+  const testUserId = 'uid';
+  const testSuggestionId = 'suggestionId';
+  late SuggestionRepositoryImpl suggestionRepository;
+  late MockDocumentReference mockDocumentReference = MockDocumentReference();
+  MockFirebaseAuth(signedIn: true, mockUser: MockUser(uid: testUserId));
 
   setUp(() async {
     mockDatasource = MockSuggestionDataSource();
 
-    testSuggestionDataMap = {
-      'title': 'title',
-      'description': 'description',
-      'categoryId': testCategory.id,
-      'uid': testUId
-    };
+    mockSuggestionConverter = MockSuggestionConverter();
 
-    testSuggestion = Suggestion(
-        id: 'id',
-        title: 'title',
-        description: 'description',
-        category: testCategory);
-
-    documentSnapshotMock = MockDocumentSnapshot();
-    when(documentSnapshotMock.id).thenReturn(testSuggestionId);
-    when(documentSnapshotMock.data()).thenReturn(testSuggestionDataMap);
-mockDomainUser =  MockDomainUser();
-    testDocumentList = [documentSnapshotMock];
+    when(mockSuggestionConverter.fromDocumentSnapshot(mockDocumentSnapshot))
+        .thenReturn(mockSuggestion);
+    when(mockSuggestionConverter.toMap(mockSuggestion))
+        .thenReturn(mockSuggestionMap);
+    when(mockDomainUser.id).thenReturn(testUserId);
   });
 
   group('Suggestion Repository Implementation tests', () {
-/*
-    test('Should return suggestions empty list', (() async {
-      final suggestionRepository = SuggestionRepositoryImpl(mockDatasource, mockDomainUser)
-      final SuggestionDataSource remoteDataSource =
-      SuggestionDataSource(firebaseFirestore: fakeFirebaseFirestore);
+    test('Datasource addition method should be called ', (() async {
+      when(mockDatasource.add(mockSuggestionMap))
+          .thenAnswer((_) async => mockDocumentReference);
 
-      remoteDataSource.snapshots.listen((event) {
-        expect(event.docs, isEmpty);
-      });
+      suggestionRepository = SuggestionRepositoryImpl(
+          dataSource: mockDatasource,
+          currentUser: mockDomainUser,
+          suggestionConverter: mockSuggestionConverter);
+
+      suggestionRepository.addSuggestion(mockSuggestion);
+
+      verify(mockDatasource.add(mockSuggestionMap)).called(1);
     }));
 
+    test('Datasource deletion method should be called ', (() async {
+      when(mockDatasource.delete(testSuggestionId))
+          .thenAnswer((_) async => mockDocumentReference);
 
+      suggestionRepository = SuggestionRepositoryImpl(
+          dataSource: mockDatasource,
+          currentUser: mockDomainUser,
+          suggestionConverter: mockSuggestionConverter);
 
+      suggestionRepository.deleteSuggestion(testSuggestionId);
 
-
-    test('Should retrieve non empty suggestions list', (() async {
-      when(mockDatasource.getAllSuggestionDocuments())
-          .thenAnswer((_) async => Future.value(testDocumentList));
-
-      final expectedList = [testSuggestion];
-
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
-      final getAllResultValue =
-          ((await repository.getAll()) as Success<List<Suggestion>>).value;
-
-      expect(getAllResultValue.length, testDocumentList.length);
-
-      getAllResultValue.asMap().forEach((index, currentResultSuggestion) {
-        expect(currentResultSuggestion, equals(expectedList[index]));
-      });
+      verify(mockDatasource.delete(testSuggestionId)).called(1);
     }));
 
-    test('Should retrieve  empty suggestions list', (() async {
-      when(mockDatasource.getAllSuggestionDocuments())
-          .thenAnswer((_) async => Future.value([]));
-
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
-      final getAllResultValue =
-          ((await repository.getAll()) as Success<List<Suggestion>>).value;
-
-      expect(getAllResultValue.isEmpty, true);
-    }));
-
-    test('Suggestion should be added', () async {
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
-      await repository.addSuggestion(testSuggestion);
-
-      verify(mockDatasource.add(testSuggestionDataMap)).called(1);
-    });
-
-    test('Suggestion should be deleted', () async {
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
-      await repository.deleteSuggestion(testSuggestion.id!);
-
-      verify(mockDatasource.delete(testSuggestion.id!)).called(1);
-    });
-
-    test('Suggestion should be updated', () async {
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
-      const updatedTitle = 'Updated title';
-
-      var updatedSuggestion = testSuggestion;
-      updatedSuggestion.title = updatedTitle;
-
-      var updatedSuggestionMap = testSuggestionDataMap;
-      updatedSuggestionMap['title'] = updatedTitle;
-
-      await repository.updateSuggestion(updatedSuggestion);
-
-      verify(mockDatasource.update(testSuggestion.id, updatedSuggestionMap))
-          .called(1);
-    });
-
-    test('Suggestion related to the passed id should be returned', () async {
-      final repository =
-          SuggestionRepositoryImpl(mockDatasource, testFirebaseAuth);
-
+    test('Expected Suggestion should be retrieved ', (() async {
       when(mockDatasource.getById(testSuggestionId))
-          .thenAnswer((_) async => Future.value(documentSnapshotMock));
+          .thenAnswer((_) async => mockDocumentSnapshot);
 
-      final returnedSuggestion =
-          await repository.getSuggestionById(testSuggestionId);
+      suggestionRepository = SuggestionRepositoryImpl(
+          dataSource: mockDatasource,
+          currentUser: mockDomainUser,
+          suggestionConverter: mockSuggestionConverter);
 
-      expect(returnedSuggestion, equals(Success(testSuggestion)));
-   });
-*/  });
+      final resultSuggestion =
+          await suggestionRepository.getSuggestionById(testSuggestionId);
+
+      expect(resultSuggestion, Success(mockSuggestion as Suggestion));
+    }));
+
+    test('Suggestion stream should be returned ', (() async {
+
+            Stream<QuerySnapshot> stream = Stream.value(mockQuerySnapshot);
+      when(mockDatasource.snapshots).thenAnswer((_) =>  stream);
+
+      suggestionRepository = SuggestionRepositoryImpl(
+          dataSource: mockDatasource,
+          currentUser: mockDomainUser,
+          suggestionConverter: mockSuggestionConverter);
+
+      final resultStream =
+           suggestionRepository.getSuggestionsStream();
+
+      expect(resultStream, stream);
+    }));
+  });
 }

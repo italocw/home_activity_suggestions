@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:home_activity_suggestions/core/result.dart';
+import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
 import 'package:home_activity_suggestions/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/domain_user_converter.dart';

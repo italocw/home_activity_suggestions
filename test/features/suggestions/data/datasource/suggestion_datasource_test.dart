@@ -43,7 +43,7 @@ void main() {
           .thenReturn(mockCollectionReference);
 
       when(mockCollectionReference.add(mockSuggestionData))
-          .thenAnswer((_) async => await mockDocumentReference);
+          .thenAnswer((_) async => mockDocumentReference);
 
       final SuggestionDataSource remoteDataSource =
           SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
@@ -67,43 +67,41 @@ void main() {
       final SuggestionDataSource remoteDataSource =
           SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
-          await remoteDataSource.delete(testDocumentPath);
+      await remoteDataSource.delete(testDocumentPath);
 
-      verify(await mockDocumentReference.delete())
-          .called(1);
+      verify(await mockDocumentReference.delete()).called(1);
     }));
 
     test('Document suggestion should be updated', (() async {
-      when(mockDocumentReference.update(mockSuggestionData)).thenAnswer((_) async {});
+      when(mockDocumentReference.update(mockSuggestionData))
+          .thenAnswer((_) async {});
       when(mockCollectionReference.doc(testDocumentPath))
           .thenReturn(mockDocumentReference);
       when(mockFirebaseFirestore.collection(testCollectionPath))
           .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-      SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
+          SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
       await remoteDataSource.update(testDocumentPath, mockSuggestionData);
 
-      verify(await mockDocumentReference.update( mockSuggestionData))
-          .called(1);
+      verify(await mockDocumentReference.update(mockSuggestionData)).called(1);
     }));
 
     test('Suggestion should be retrieved', (() async {
-      when(mockDocumentReference.update(mockSuggestionData)).thenAnswer((_) async {});
+      when(mockDocumentReference.update(mockSuggestionData))
+          .thenAnswer((_) async {});
       when(mockCollectionReference.doc(testDocumentPath))
           .thenReturn(mockDocumentReference);
       when(mockFirebaseFirestore.collection(testCollectionPath))
           .thenReturn(mockCollectionReference);
 
       final SuggestionDataSource remoteDataSource =
-      SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
+          SuggestionDataSource(firebaseFirestore: mockFirebaseFirestore);
 
       await remoteDataSource.update(testDocumentPath, mockSuggestionData);
 
-      verify(await mockDocumentReference.update( mockSuggestionData))
-          .called(1);
+      verify(await mockDocumentReference.update(mockSuggestionData)).called(1);
     }));
   });
 }
-
