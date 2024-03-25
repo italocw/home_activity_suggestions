@@ -15,11 +15,20 @@ class SuggestionCategory {
   });
 }
 
-class SuggestionCategoryBuilder {
-  SuggestionCategory build({required String id}) =>
+class SuggestionCategoryLocator {
+  final List<SuggestionCategory> _categories;
+
+  SuggestionCategoryLocator({required List<SuggestionCategory> categories}) : _categories = categories;
+
+  SuggestionCategory locateCategoryById({required String id}) =>
       _categories.firstWhere((category) => id == category.id);
 }
 
+final Provider<SuggestionCategoryLocator> suggestionCategoryLocatorProvider =
+Provider ((ref)  => SuggestionCategoryLocator(categories: _categories));
+
+final Provider<List<SuggestionCategory>> categoriesProvider =
+Provider ((ref)  => _categories);
 
 final _categories = [
   SuggestionCategory(
