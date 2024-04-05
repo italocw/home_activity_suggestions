@@ -1,7 +1,7 @@
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 
-import '../../../../core/result.dart';
+import '../../../../core/data/result.dart';
 
 class CreateAccount {
   final AuthenticationRepository _authenticationRepository;

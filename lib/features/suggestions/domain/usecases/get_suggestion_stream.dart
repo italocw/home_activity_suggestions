@@ -7,5 +7,5 @@ class GetSuggestionStream {
 
   GetSuggestionStream(this.repository);
 
-  Stream<Suggestion> call() => repository.getSuggestionsStream();
+  Stream<List<Suggestion>> call() => repository.getSuggestionsStream();
 }

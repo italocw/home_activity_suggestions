@@ -1,6 +1,10 @@
-import 'package:home_activity_suggestions/core/result.dart';
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
+import 'package:home_activity_suggestions/features/suggestions/data/suggestion_map_keys.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
@@ -10,6 +14,7 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
   final SuggestionDataSource _dataSource;
   final DomainUser _currentUser;
   final SuggestionConverter _suggestionConverter;
+  late final StreamController<List<Suggestion>> _streamController;
 
   SuggestionRepositoryImpl(
       {required SuggestionDataSource dataSource,
@@ -17,20 +22,31 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
       required SuggestionConverter suggestionConverter})
       : _dataSource = dataSource,
         _currentUser = currentUser,
-        _suggestionConverter = suggestionConverter;
+        _suggestionConverter = suggestionConverter {
+    setSuggestionsStream();
+  }
+
+  void setSuggestionsStream() {
+    _streamController = StreamController<List<Suggestion>>();
+
+    _dataSource.snapshots.listen((snapshot) {
+      List<Suggestion> suggestions = [];
+
+      suggestions = snapshot.docs
+          .map((documentSnapshot) =>
+              _suggestionConverter.fromDocumentSnapshot(documentSnapshot))
+          .toList();
+
+
+      _streamController.add(suggestions);
+      _streamController.close();
+    });
+
+  }
 
   @override
-  Stream<Suggestion> getSuggestionsStream() {
-    return _dataSource.snapshots.map((querySnapshot) {
-      final List<Suggestion> suggestions = [];
-
-      for (final doc in querySnapshot.docs) {
-        final suggestion = _suggestionConverter.fromDocumentSnapshot(doc);
-        suggestions.add(suggestion);
-      }
-
-      return suggestions;
-    }).expand((suggestions) => suggestions);
+  Stream<List<Suggestion>> getSuggestionsStream() {
+    return _streamController.stream;
   }
 
   @override
@@ -41,9 +57,9 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
 
   get _currentUserID => _currentUser.id;
 
-  Map<String, String> _suggestionMapWithUId(Suggestion suggestion) {
+  Map<String, dynamic> _suggestionMapWithUId(Suggestion suggestion) {
     var suggestionMap = _suggestionConverter.toMap(suggestion);
-    suggestionMap['uid'] = _currentUserID;
+    suggestionMap[SuggestionMapKeys.uid] = _currentUserID;
     return suggestionMap;
   }
 
@@ -61,7 +77,8 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
   Future<Result<Suggestion>> getSuggestionById(String id) async {
     try {
       final foundSuggestionMap = await _dataSource.getById(id);
-      final suggestion = _suggestionConverter.fromDocumentSnapshot(foundSuggestionMap);
+      final suggestion =
+          _suggestionConverter.fromDocumentSnapshot(foundSuggestionMap);
 
       return Success(suggestion);
     } on Exception catch (exception) {

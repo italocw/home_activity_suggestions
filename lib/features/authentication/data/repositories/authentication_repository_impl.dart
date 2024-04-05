@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_activity_suggestions/features/authentication/data/datasource/authentication_datasource.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/domain_user_converter.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 
-import '../../../../core/result.dart';
+import '../../../../core/data/result.dart';
 import '../../domain/entities/domain_user.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {

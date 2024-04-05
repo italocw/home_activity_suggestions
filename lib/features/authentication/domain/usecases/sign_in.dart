@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 
-import '../../../../core/result.dart';
+import '../../../../core/data/result.dart';
 import '../entities/domain_user.dart';
 
 class SignIn {

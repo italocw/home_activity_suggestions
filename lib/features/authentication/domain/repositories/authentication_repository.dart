@@ -1,6 +1,6 @@
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 
-import '../../../../core/result.dart';
+import '../../../../core/data/result.dart';
 
 abstract class AuthenticationRepository {
   Future<Result<DomainUser>> signIn(

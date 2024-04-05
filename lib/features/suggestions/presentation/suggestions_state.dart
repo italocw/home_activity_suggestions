@@ -29,7 +29,7 @@ class SuggestionListNotifier extends StateNotifier<List<Suggestion>> {
   Future<void> addSuggestion(Suggestion suggestion) async =>
       _addSuggestion(suggestion);
 
-  Stream<Suggestion> getSuggestionsStream() => _getSuggestionStream();
+  Stream<List<Suggestion>> getSuggestionsStream() => _getSuggestionStream();
 
   Future<void> updateSuggestion(Suggestion suggestion) async =>
       _updateSuggestion(suggestion);

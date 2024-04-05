@@ -7,7 +7,7 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/usecases_providers.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_data_provider.dart';
 
-import '../../../../core/result.dart';
+import '../../../../core/data/result.dart';
 import '../../domain/usecases/logout.dart';
 
 final authScreenNotifierProvider =
