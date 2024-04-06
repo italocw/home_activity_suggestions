@@ -14,7 +14,6 @@ import 'suggestion_repository_implementation_test.mocks.dart';
 
 @GenerateMocks([
   SuggestionDataSource,
-  Stream,
   DocumentSnapshot,
   DomainUser,
   Suggestion,
@@ -25,7 +24,6 @@ import 'suggestion_repository_implementation_test.mocks.dart';
   QueryDocumentSnapshot
 ])
 void main() {
-  final MockStream<QuerySnapshot> mockStream = MockStream();
   late MockSuggestionDataSource mockDatasource;
   late MockQuerySnapshot<Object?> mockQuerySnapshot = MockQuerySnapshot();
   late MockSuggestionConverter mockSuggestionConverter;
@@ -140,7 +138,5 @@ void main() {
       });
     }));
   });
-
-
 }
 

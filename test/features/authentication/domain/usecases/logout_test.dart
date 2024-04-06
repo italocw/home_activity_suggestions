@@ -21,9 +21,6 @@ void main() {
     test('Should call repository logout',
         (() async {
 
-          when(mockAuthenticationRepository.logout())
-              .thenAnswer((_) async => {});
-
           logout =
               Logout(authenticationRepository: mockAuthenticationRepository);
 

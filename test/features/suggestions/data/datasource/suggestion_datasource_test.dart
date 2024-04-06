@@ -58,7 +58,6 @@ void main() {
     }));
 
     test('Document suggestion should be deleted', (() async {
-      when(mockDocumentReference.delete()).thenAnswer((_) async {});
       when(mockCollectionReference.doc(testDocumentPath))
           .thenReturn(mockDocumentReference);
 
@@ -74,9 +73,7 @@ void main() {
     }));
 
     test('Document suggestion should be updated', (() async {
-      when(mockDocumentReference.update(mockSuggestionData))
-          .thenAnswer((_) async {});
-      when(mockCollectionReference.doc(testDocumentPath))
+       when(mockCollectionReference.doc(testDocumentPath))
           .thenReturn(mockDocumentReference);
       when(mockFirebaseFirestore.collection(testCollectionPath))
           .thenReturn(mockCollectionReference);
@@ -90,9 +87,7 @@ void main() {
     }));
 
     test('Suggestion should be retrieved', (() async {
-      when(mockDocumentReference.update(mockSuggestionData))
-          .thenAnswer((_) async {});
-      when(mockCollectionReference.doc(testDocumentPath))
+       when(mockCollectionReference.doc(testDocumentPath))
           .thenReturn(mockDocumentReference);
       when(mockFirebaseFirestore.collection(testCollectionPath))
           .thenReturn(mockCollectionReference);
