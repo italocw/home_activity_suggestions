@@ -62,7 +62,7 @@ void main() {
       expect(userResult, expectedResult);
     }));
   });
-  test('Should get expected non null current Domain User', (() async {
+  test('Should get expected non null current Domain User', (()  {
     when(mockDomainUserConverter.fromFirebaseUser(firebaseUser: mockUser))
         .thenReturn(mockDomainUser);
 
@@ -77,7 +77,7 @@ void main() {
     expect(userResult, mockDomainUser);
   }));
 
-  test('Should get null current Domain User', (() async {
+  test('Should get null current Domain User', (()  {
     when(mockDomainUserConverter.fromFirebaseUser(firebaseUser: mockUser))
         .thenReturn(null);
 

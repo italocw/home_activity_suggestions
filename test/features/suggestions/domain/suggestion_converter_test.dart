@@ -11,9 +11,7 @@ import 'package:test/test.dart';
 import 'suggestion_converter_test.mocks.dart';
 
 @GenerateMocks([
-  QuerySnapshot<Object?>,
   QueryDocumentSnapshot,
-  Stream<QuerySnapshot<Object?>>,
   SuggestionCategoryLocator,
   Suggestion,
   SuggestionCategory
@@ -30,7 +28,6 @@ void main() {
   const testCategoryId = 'categoryId';
   late MockQueryDocumentSnapshot mockQueryDocumentSnapshot =
       MockQueryDocumentSnapshot();
-  late MockQuerySnapshot mockQuerySnapshot = MockQuerySnapshot();
 
   group('Suggestion Converter tests', () {
     void inputMockSuggestionData() {
@@ -74,6 +71,7 @@ void main() {
     test('Should return expected suggestion from document snapshot', (() {
       final suggestionResult =
           suggestionConverter.fromDocumentSnapshot(mockQueryDocumentSnapshot);
+
       compareSuggestionData(suggestionResult, mockSuggestion);
     }));
 

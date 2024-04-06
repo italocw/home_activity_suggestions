@@ -12,10 +12,12 @@ void main() {
       MockSuggestionCategory();
   late List<MockSuggestionCategory> testCategories;
   late SuggestionCategoryLocator suggestionCategoryLocator;
+
   setUpAll(() {
     when(mockSuggestionCategory.id).thenReturn(testCategoryId);
     testCategories = [mockSuggestionCategory];
   });
+
   group('SuggestionCategoryLocator tests', () {
     test('Should return expected category', (() {
       suggestionCategoryLocator =

@@ -44,7 +44,7 @@ void main() {
     }));
 
     test('Should return expected not null current user',
-        (() async {
+        (()  {
           when(mockFirebaseAuth.currentUser)
               .thenReturn(mockUser);
 
@@ -56,7 +56,7 @@ void main() {
         }));
 
     test('Should return null when try to get current user',
-        (() async {
+        (()  {
           when(mockFirebaseAuth.currentUser)
               .thenReturn(null);
 

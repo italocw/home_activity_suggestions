@@ -16,6 +16,7 @@ void main() {
   late MockStream<QuerySnapshot<Map<String, dynamic>>> mockStream;
   const String testCollectionPath = 'suggestions';
   const String testDocumentPath = 'id';
+
   setUp(() {
     mockSuggestionData = MockMap();
     mockFirebaseFirestore = MockFirebaseFirestore();
@@ -27,7 +28,7 @@ void main() {
   });
 
   group('Data source tests', () {
-    test('Should return document snapshot', (() async {
+    test('Should return document snapshot', (()  {
       when(mockFirebaseFirestore.collection(testCollectionPath))
           .thenReturn(mockCollectionReference);
 

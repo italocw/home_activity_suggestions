@@ -46,18 +46,17 @@ void main() {
   MockFirebaseAuth(signedIn: true, mockUser: MockUser(uid: testUserId));
 
 
-  setUp(() async {
-    mockDatasource = MockSuggestionDataSource();
-
-    mockSuggestionConverter = MockSuggestionConverter();
+  void setMockConverterStubs(){
 
     when(mockSuggestionConverter.fromDocumentSnapshot(mockDocumentSnapshot))
         .thenReturn(mockSuggestion);
     when(mockSuggestionConverter.toMap(mockSuggestion))
         .thenReturn(mockSuggestionMap);
-    when(mockDomainUser.id).thenReturn(testUserId);
-
-
+    when(mockSuggestionConverter
+        .fromDocumentSnapshot(mockQueryDocumentSnapshot))
+        .thenReturn(mockSuggestion);
+  }
+  List<MockSuggestion> setRepositoryContentSimulation(){
     mockSnapshotDocsList = [
       mockQueryDocumentSnapshot,
       mockQueryDocumentSnapshot
@@ -65,11 +64,22 @@ void main() {
 
     mocksSuggestionsSnapshotList = [mockSuggestion, mockSuggestion];
     when(mockQuerySnapshot.docs).thenReturn(mockSnapshotDocsList);
+    return mocksSuggestionsSnapshotList;
+  }
 
-    when(mockSuggestionConverter
-        .fromDocumentSnapshot(mockQueryDocumentSnapshot))
-        .thenReturn(mockSuggestion);
 
+  setUpAll(()  {
+    mockDatasource = MockSuggestionDataSource();
+    mockSuggestionConverter = MockSuggestionConverter();
+
+    setMockConverterStubs();
+
+    when(mockDomainUser.id).thenReturn(testUserId);
+
+    mocksSuggestionsSnapshotList = setRepositoryContentSimulation();
+  });
+
+  setUp(()  {
     Stream<QuerySnapshot> stream = Stream.value(mockQuerySnapshot);
     when(mockDatasource.snapshots).thenAnswer((_) => stream);
   });
@@ -130,4 +140,7 @@ void main() {
       });
     }));
   });
+
+
 }
+
