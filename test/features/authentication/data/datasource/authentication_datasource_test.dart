@@ -92,7 +92,7 @@ void main() {
         (() async {
       authenticationDataSource =
           AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
-      final expectedUserCredential = await Future.value(mockUserCredential);
+      final expectedUserCredential =mockUserCredential;
       when(mockFirebaseAuth.createUserWithEmailAndPassword(
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => expectedUserCredential);
