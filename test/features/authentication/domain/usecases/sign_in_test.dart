@@ -31,7 +31,7 @@ void main() {
     });
     test('Should call repository signIn method with successful result',
         (() async {
-      when(mockAuthenticationRepository.createAccount(
+      when(mockAuthenticationRepository.signIn(
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => mockSuccess);
 
@@ -47,7 +47,7 @@ void main() {
 
     test('Should call repository sign in method with failed result',
         (() async {
-          when(mockAuthenticationRepository.createAccount(
+          when(mockAuthenticationRepository.signIn(
               email: testEmail, password: testPassword))
               .thenAnswer((_) async => mockFailure);
 
