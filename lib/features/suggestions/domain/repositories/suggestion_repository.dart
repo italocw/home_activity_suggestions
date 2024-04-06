@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 

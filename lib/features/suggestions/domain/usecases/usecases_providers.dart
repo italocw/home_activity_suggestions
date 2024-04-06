@@ -8,26 +8,26 @@ import 'package:home_activity_suggestions/features/suggestions/domain/usecases/u
 
 final Provider<AddSuggestion> addSuggestionProvider = Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return AddSuggestion(repository);
+      return AddSuggestion(suggestionRepository: repository);
     });
 
 final Provider<UpdateSuggestion> updateSuggestionsProvider = Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return UpdateSuggestion(repository);
+      return UpdateSuggestion(suggestionRepository: repository);
     });
 
 final Provider<DeleteSuggestion>  deleteSuggestionProvider = Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return DeleteSuggestion(repository);
+      return DeleteSuggestion(suggestionRepository: repository);
     });
 
 final Provider<GetSuggestion>  getSuggestionProvider = Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestion(repository);
+      return GetSuggestion(suggestionRepository: repository);
     });
 
 final Provider<GetSuggestionStream>  getSuggestionsStreamProvider =
     Provider((ref) {
       final repository = ref.read(suggestionRepositoryProvider);
-      return GetSuggestionStream(repository);
+      return GetSuggestionStream(suggestionRepository: repository);
     });

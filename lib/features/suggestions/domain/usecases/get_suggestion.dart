@@ -3,10 +3,11 @@ import 'package:home_activity_suggestions/features/suggestions/domain/entities/s
 import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class GetSuggestion {
-  final SuggestionRepository repository;
+  final SuggestionRepository _repository;
 
-  GetSuggestion(this.repository);
+  GetSuggestion({required SuggestionRepository suggestionRepository}) : _repository = suggestionRepository;
+
 
   Future<Result<Suggestion>> call(String id) =>
-      repository.getSuggestionById(id);
+      _repository.getSuggestionById(id);
 }

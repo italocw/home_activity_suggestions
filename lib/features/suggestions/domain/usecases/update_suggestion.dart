@@ -2,10 +2,10 @@ import 'package:home_activity_suggestions/features/suggestions/domain/entities/s
 import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
 
 class UpdateSuggestion {
-  final SuggestionRepository repository;
+  final SuggestionRepository _repository;
 
-  UpdateSuggestion(this.repository);
+  UpdateSuggestion({required SuggestionRepository suggestionRepository}) : _repository = suggestionRepository;
 
   Future<void> call(Suggestion suggestion) =>
-      repository.updateSuggestion(suggestion);
+      _repository.updateSuggestion(suggestion);
 }
