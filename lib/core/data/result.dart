@@ -4,7 +4,7 @@ sealed class Result<T> extends Equatable {
   const Result();
 }
 
-final class Success<T> extends Result<T> {
+interface class Success<T> extends Result<T> {
   const Success(this.value);
   final T value;
 
@@ -12,7 +12,7 @@ final class Success<T> extends Result<T> {
   List<Object?> get props => [value];
 }
 
-final class Failure<T> extends Result<T> {
+interface class Failure<T> extends Result<T> {
   const Failure(this.exception);
   final Exception exception;
 

@@ -19,7 +19,7 @@ import 'authentication_repository_impl_test.mocks.dart';
   DomainUser,
   UserCredential,
   DomainUserConverter,
-  User
+  User,
 ])
 void main() {
   late MockAuthenticationDataSource mockAuthenticationDataSource;
@@ -62,7 +62,7 @@ void main() {
       expect(userResult, expectedResult);
     }));
   });
-  test('Should get expected non null current Domain User', (()  {
+  test('Should get expected non null current Domain User', (() {
     when(mockDomainUserConverter.fromFirebaseUser(firebaseUser: mockUser))
         .thenReturn(mockDomainUser);
 
@@ -72,12 +72,12 @@ void main() {
         authenticationDataSource: mockAuthenticationDataSource,
         domainUserConverter: mockDomainUserConverter);
 
-    final userResult =  authenticationRepository.currentDomainUser;
+    final userResult = authenticationRepository.currentDomainUser;
 
     expect(userResult, mockDomainUser);
   }));
 
-  test('Should get null current Domain User', (()  {
+  test('Should get null current Domain User', (() {
     when(mockDomainUserConverter.fromFirebaseUser(firebaseUser: mockUser))
         .thenReturn(null);
 
@@ -87,7 +87,7 @@ void main() {
         authenticationDataSource: mockAuthenticationDataSource,
         domainUserConverter: mockDomainUserConverter);
 
-    final userResult =  authenticationRepository.currentDomainUser;
+    final userResult = authenticationRepository.currentDomainUser;
 
     expect(userResult, null);
   }));
