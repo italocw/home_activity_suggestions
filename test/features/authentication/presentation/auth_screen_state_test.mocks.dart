@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:flutter_riverpod/flutter_riverpod.dart' as _i12;
 import 'package:home_activity_suggestions/core/data/result.dart' as _i4;
 import 'package:home_activity_suggestions/features/authentication/domain/entities/auth_screen_data.dart'
     as _i10;
@@ -18,8 +19,11 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
     as _i8;
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart'
     as _i9;
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_provider.dart'
+    as _i11;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:state_notifier/state_notifier.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -278,4 +282,89 @@ class MockAuthOrganismDynamicData extends _i1.Mock
         Invocation.getter(#authMode),
         returnValue: _i10.AuthMode.signIn,
       ) as _i10.AuthMode);
+}
+
+/// A class which mocks [AuthScreenErrorNotifier].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthScreenErrorNotifier extends _i1.Mock
+    implements _i11.AuthScreenErrorNotifier {
+  MockAuthScreenErrorNotifier() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set onError(_i12.ErrorListener? _onError) => super.noSuchMethod(
+        Invocation.setter(
+          #onError,
+          _onError,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get mounted => (super.noSuchMethod(
+        Invocation.getter(#mounted),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i3.Stream<String?> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i3.Stream<String?>.empty(),
+      ) as _i3.Stream<String?>);
+
+  @override
+  set state(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  bool updateShouldNotify(
+    String? old,
+    String? current,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateShouldNotify,
+          [
+            old,
+            current,
+          ],
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i12.RemoveListener addListener(
+    _i13.Listener<String?>? listener, {
+    bool? fireImmediately = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+          {#fireImmediately: fireImmediately},
+        ),
+        returnValue: () {},
+      ) as _i12.RemoveListener);
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

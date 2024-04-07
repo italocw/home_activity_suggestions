@@ -6,6 +6,7 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/logout.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/sign_in.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_provider.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/suggestions_state.dart';
@@ -22,7 +23,8 @@ import 'auth_screen_state_test.mocks.dart';
   DomainUser,
   Success,
   Failure,
-  AuthOrganismDynamicData
+  AuthOrganismDynamicData,
+  AuthScreenErrorNotifier
 ])
 void main() {
   final MockSuccess<DomainUser> mockSuccess = MockSuccess();
@@ -30,6 +32,7 @@ void main() {
   final MockCreateAccount mockCreateAccount = MockCreateAccount();
   final MockLogout mockLogout = MockLogout();
   final MockSignIn mockSignIn = MockSignIn();
+  final MockAuthScreenErrorNotifier mockAuthScreenErrorNotifier= MockAuthScreenErrorNotifier();
   final MockSwitchAuthScreenMode mockSwitchAuthScreenMode =
       MockSwitchAuthScreenMode();
   final MockDomainUser mockDomainUser = MockDomainUser();
@@ -45,7 +48,7 @@ void main() {
         signIn: mockSignIn,
         createAccount: mockCreateAccount,
         logout: mockLogout,
-        switchAuthScreenMode: mockSwitchAuthScreenMode);
+        switchAuthScreenMode: mockSwitchAuthScreenMode, authScreenErrorNotifier: mockAuthScreenErrorNotifier);
   }
 
   group('AuthScreenStateNotifier tests', () {
@@ -69,7 +72,7 @@ void main() {
 
       initializeAuthScreenStateNotifier();
 
-      await authScreenStateNotifier.submitAuth(
+       authScreenStateNotifier.submitAuth(
           email: testEmail, password: testPassword);
 
       verify(await mockCreateAccount(email: testEmail, password: testPassword))
@@ -86,7 +89,7 @@ void main() {
 
           initializeAuthScreenStateNotifier();
 
-          await authScreenStateNotifier.submitAuth(
+           authScreenStateNotifier.submitAuth(
               email: testEmail, password: testPassword);
 
           verify(await mockSignIn(email: testEmail, password: testPassword))
