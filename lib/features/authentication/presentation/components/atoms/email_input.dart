@@ -19,13 +19,16 @@ class _EmailInputState extends ConsumerState<EmailInput> {
     final labelText =appLocalizations.email;
     const maxEmailLengthAccordingRFC = 254;
 
+    const minCharactersAmount = 3;
+
+    final errorText = appLocalizations.this_field_must_have_between_n_and_m_characters(minCharactersAmount, maxEmailLengthAccordingRFC);
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       maxLength: maxEmailLengthAccordingRFC,
       decoration:  InputDecoration(labelText: labelText,counterText: ""),
       validator: (enteredName) {
-        if (enteredName == null || enteredName.trim().length <= 1) {
-          return 'Deve ter entre 1 e $maxEmailLengthAccordingRFC caracteres.';
+        if (enteredName == null || enteredName.trim().length < minCharactersAmount) {
+          return errorText;
         } else {
           return null;
         }

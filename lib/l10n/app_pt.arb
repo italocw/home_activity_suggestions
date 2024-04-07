@@ -14,5 +14,17 @@
     "user_not_found": "Usuário não encontrado",
     "invalid_credentials": "Dados informados não estão corretos",
     "email_already_in_use": "Email já está em uso",
-    "weak_password": "Senha fraca"
+    "weak_password": "Senha fraca",
+    "this_field_must_not_be_empty": "Esse campo não pode ser vazio",
+    "this_field_must_have_between_n_and_m_characters": "Esse campo deve ter entre {min} e {max} caracters",
+    "@this_field_must_have_between_n_and_m_characters" : {
+        "placeholders": {
+            "min": {
+                "type": "int"
+            },
+            "max": {
+                "type": "int"
+            }
+        }
+    }
 }
