@@ -19,24 +19,36 @@ final authScreenNotifierProvider =
   final logout = ref.read(logoutProvider);
   final switchAuthScreenMode = ref.read(switchAuthScreenModeProvider);
   return AuthScreenStateNotifier(
-      authScreenData, signIn, createAccount, logout, switchAuthScreenMode);
+      authScreenData: authScreenData,
+      signIn: signIn,
+      createAccount: createAccount,
+      logout: logout,
+      switchAuthScreenMode: switchAuthScreenMode);
 });
 
 class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
-  AuthScreenStateNotifier(AuthOrganismDynamicData authScreenData, this._signIn,
-      this._createAccount, this._logout, this._switchAuthScreenMode)
-      : super(authScreenData);
+  AuthScreenStateNotifier(
+      {required AuthOrganismDynamicData authScreenData,
+      required SignIn signIn,
+      required CreateAccount createAccount,
+      required Logout logout,
+      required SwitchAuthScreenMode switchAuthScreenMode})
+      : _signIn = signIn,
+        _createAccount = createAccount,
+        _logout = logout,
+        _switchAuthScreenMode = switchAuthScreenMode,
+        super(authScreenData);
 
   final SignIn _signIn;
   final CreateAccount _createAccount;
   final Logout _logout;
   final SwitchAuthScreenMode _switchAuthScreenMode;
 
-  Future<Result<DomainUser>>_doSignIn(
+  Future<Result<DomainUser>> _doSignIn(
           {required String email, required String password}) =>
       _signIn(email: email, password: password);
 
-  Future<Result<DomainUser>>_doCreateAccount(
+  Future<Result<DomainUser>> _doCreateAccount(
           {required String email, required String password}) =>
       _createAccount(email: email, password: password);
 
