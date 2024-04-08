@@ -1,5 +1,5 @@
 {
-    "title": "Sugestões de atividades caseiras",
+    "app_title": "Sugestões de atividades caseiras",
     "enter": "Entrar",
     "email": "Email",
     "password": "Senha",
@@ -28,7 +28,6 @@
             }
         }
     },
-
 
     "books": "Livros",
     "movie_and_tv_shows": "Filmes e seriados",
