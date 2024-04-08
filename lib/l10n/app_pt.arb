@@ -27,5 +27,15 @@
                 "type": "int"
             }
         }
-    }
+    },
+
+
+    "books": "Livros",
+    "movie_and_tv_shows": "Filmes e seriados",
+    "recipes": "Receitas",
+    "board_games": "Jogos de tabuleiro",
+    "music": "Música",
+    "video_games": "Jogos eletrônicos",
+    "online_channels_and_profiles": "Canais online e perfis",
+    "others": "Outras"
 }

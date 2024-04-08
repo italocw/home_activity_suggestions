@@ -16,10 +16,6 @@ class AuthOrganism extends ConsumerWidget {
     final screenNotifier = ref.watch(authScreenNotifierProvider.notifier);
     final screenData = ref.watch(authScreenNotifierProvider);
 
-    final email = ref.read(emailProvider);
-    final password = ref.read(passwordProvider);
-
-
 
     void onSubmitButtonPressed() async {
       var formState = formKey.currentState!;
@@ -28,7 +24,12 @@ class AuthOrganism extends ConsumerWidget {
       String? submissionError ;
       if (isValid) {
         formState.save();
-    submissionError= await    screenNotifier.submitAuth(email: email, password: password);
+        final email = ref.read(emailProvider);
+        final password = ref.read(passwordProvider);
+
+
+
+        submissionError= await    screenNotifier.submitAuth(email: email, password: password);
       }
 
       if (context.mounted) {

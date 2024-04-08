@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_test/flutter_test.dart' as flutter_test;
 import 'package:home_activity_suggestions/features/suggestions/data/suggestion_map_keys.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion_category.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';

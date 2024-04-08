@@ -61,19 +61,16 @@ class MockSuggestionCategory extends _i1.Mock
 
   @override
   _i2.IconData get iconData => (super.noSuchMethod(
-        Invocation.getter(#icon),
+        Invocation.getter(#iconData),
         returnValue: _FakeIconData_0(
           this,
-          Invocation.getter(#icon),
+          Invocation.getter(#iconData),
         ),
       ) as _i2.IconData);
 
   @override
-  String get color => (super.noSuchMethod(
+  int get color => (super.noSuchMethod(
         Invocation.getter(#color),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.getter(#color),
-        ),
-      ) as String);
+        returnValue: 0,
+      ) as int);
 }
