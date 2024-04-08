@@ -74,7 +74,7 @@ void main() {
       authenticationDataSource =
           AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
       final expectedException = FirebaseAuthException(
-          code: FirebaseAuthSubmittionErrorCodes.userNotFound);
+          code: FirebaseAuthSubmissionErrorCodes.userNotFound);
       when(mockFirebaseAuth.signInWithEmailAndPassword(
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => throw expectedException);
@@ -113,7 +113,7 @@ void main() {
           authenticationDataSource =
               AuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
           final expectedException = FirebaseAuthException(
-              code: FirebaseAuthSubmittionErrorCodes.emailAlreadyInUse);
+              code: FirebaseAuthSubmissionErrorCodes.emailAlreadyInUse);
           when(mockFirebaseAuth.createUserWithEmailAndPassword(
               email: testEmail, password: testPassword))
               .thenAnswer((_) async => throw expectedException);

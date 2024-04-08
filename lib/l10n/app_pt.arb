@@ -12,11 +12,12 @@
     "invalid_email": "O email digitado é inválido",
     "user_disabled": "Usuário está desabilitado",
     "user_not_found": "Usuário não encontrado",
-    "invalid_credentials": "Dados informados não estão corretos",
+    "invalid_credentials": "Dados informados não são válidos",
     "email_already_in_use": "Email já está em uso",
     "weak_password": "Senha fraca",
     "this_field_must_not_be_empty": "Esse campo não pode ser vazio",
     "this_field_must_have_between_n_and_m_characters": "Esse campo deve ter entre {min} e {max} caracters",
+    "some_error_has_occurred_during_the_operation": "Um erro ocorreu durante a operação",
     "@this_field_must_have_between_n_and_m_characters" : {
         "placeholders": {
             "min": {

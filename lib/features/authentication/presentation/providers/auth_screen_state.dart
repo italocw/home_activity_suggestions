@@ -7,9 +7,10 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/usecases_providers.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_data_provider.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_provider.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_message_builder.dart';
 
 import '../../../../core/data/result.dart';
+import '../../data/data_providers.dart';
 import '../../domain/usecases/logout.dart';
 
 final authScreenNotifierProvider =
@@ -20,16 +21,15 @@ final authScreenNotifierProvider =
   final createAccount = ref.read(createAccountProvider);
   final logout = ref.read(logoutProvider);
   final switchAuthScreenMode = ref.read(switchAuthScreenModeProvider);
-  final authScreenErrorNotifier =
-      ref.read(authErrorCodeNotifierProvider.notifier);
-
+  final errorMessageBuilderProvider =
+      ref.watch(authScreenErrorMessageBuilderProvider);
   return AuthScreenStateNotifier(
       authScreenData: authScreenData,
       signIn: signIn,
       createAccount: createAccount,
       logout: logout,
       switchAuthScreenMode: switchAuthScreenMode,
-      authScreenErrorNotifier: authScreenErrorNotifier);
+      errorMessageBuilder: errorMessageBuilderProvider);
 });
 
 class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
@@ -39,19 +39,19 @@ class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
       required CreateAccount createAccount,
       required Logout logout,
       required SwitchAuthScreenMode switchAuthScreenMode,
-      required AuthScreenErrorNotifier authScreenErrorNotifier})
+      required AuthScreenErrorMessageBuilder errorMessageBuilder})
       : _signIn = signIn,
         _createAccount = createAccount,
         _logout = logout,
         _switchAuthScreenMode = switchAuthScreenMode,
-        _authScreenErrorNotifier = authScreenErrorNotifier,
+        _errorMessageBuilder = errorMessageBuilder,
         super(authScreenData);
 
   final SignIn _signIn;
   final CreateAccount _createAccount;
   final Logout _logout;
   final SwitchAuthScreenMode _switchAuthScreenMode;
-  final AuthScreenErrorNotifier _authScreenErrorNotifier;
+  final AuthScreenErrorMessageBuilder _errorMessageBuilder;
 
   Future<Result<DomainUser>> _doSignIn(
           {required String email, required String password}) =>
@@ -61,7 +61,8 @@ class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
           {required String email, required String password}) =>
       _createAccount(email: email, password: password);
 
-  void submitAuth({required String email, required String password}) async {
+  Future<String?> submitAuth(
+      {required String email, required String password}) async {
     final submissionResult = switch (state.authMode) {
       AuthMode.createAccount =>
         await _doCreateAccount(email: email, password: password),
@@ -72,7 +73,10 @@ class AuthScreenStateNotifier extends StateNotifier<AuthOrganismDynamicData> {
       final errorCode =
           (submissionResult.exception as FirebaseAuthException).code;
 
-      _authScreenErrorNotifier.state = errorCode;
+      return Future.value(
+          _errorMessageBuilder.getMessage(errorCode: errorCode));
+    } else {
+      return Future.value(null);
     }
   }
 

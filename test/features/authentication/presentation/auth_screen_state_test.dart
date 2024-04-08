@@ -6,12 +6,11 @@ import 'package:home_activity_suggestions/features/authentication/domain/usecase
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/logout.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/sign_in.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/switch_auth_screen_mode.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_provider.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_message_builder.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/suggestions_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+
 
 import 'auth_screen_state_test.mocks.dart';
 
@@ -24,15 +23,14 @@ import 'auth_screen_state_test.mocks.dart';
   Success,
   Failure,
   AuthOrganismDynamicData,
-  AuthScreenErrorNotifier
-])
+  AuthScreenErrorMessageBuilder])
 void main() {
   final MockSuccess<DomainUser> mockSuccess = MockSuccess();
   final MockFailure<DomainUser> mockFailure = MockFailure();
   final MockCreateAccount mockCreateAccount = MockCreateAccount();
   final MockLogout mockLogout = MockLogout();
   final MockSignIn mockSignIn = MockSignIn();
-  final MockAuthScreenErrorNotifier mockAuthScreenErrorNotifier= MockAuthScreenErrorNotifier();
+  final  MockAuthScreenErrorMessageBuilder mockAuthScreenErrorMessageBuilder= MockAuthScreenErrorMessageBuilder();
   final MockSwitchAuthScreenMode mockSwitchAuthScreenMode =
       MockSwitchAuthScreenMode();
   final MockDomainUser mockDomainUser = MockDomainUser();
@@ -48,7 +46,7 @@ void main() {
         signIn: mockSignIn,
         createAccount: mockCreateAccount,
         logout: mockLogout,
-        switchAuthScreenMode: mockSwitchAuthScreenMode, authScreenErrorNotifier: mockAuthScreenErrorNotifier);
+        switchAuthScreenMode: mockSwitchAuthScreenMode, errorMessageBuilder:  mockAuthScreenErrorMessageBuilder);
   }
 
   group('AuthScreenStateNotifier tests', () {
