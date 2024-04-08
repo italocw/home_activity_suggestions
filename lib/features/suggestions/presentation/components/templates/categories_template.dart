@@ -10,6 +10,8 @@ class CategoriesTemplate extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.read(categoriesProvider);
-    return Container(child: CategoriesList(categories: categories));
+    return Scaffold(
+      body: CategoriesList(categories: categories),
+    );
   }
 }
