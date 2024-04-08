@@ -60,7 +60,7 @@ class MockSuggestionCategory extends _i1.Mock
       ) as String);
 
   @override
-  _i2.IconData get icon => (super.noSuchMethod(
+  _i2.IconData get iconData => (super.noSuchMethod(
         Invocation.getter(#icon),
         returnValue: _FakeIconData_0(
           this,

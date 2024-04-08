@@ -23,6 +23,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
 
     final errorText = appLocalizations.this_field_must_have_between_n_and_m_characters(minCharactersAmount, maxEmailLengthAccordingRFC);
     return TextFormField(
+      autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       maxLength: maxEmailLengthAccordingRFC,
       decoration:  InputDecoration(labelText: labelText,counterText: ""),

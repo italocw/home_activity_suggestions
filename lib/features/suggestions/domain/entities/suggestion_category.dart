@@ -1,16 +1,18 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SuggestionCategory {
   final String id;
   final String name;
-  final IconData icon;
-  final String color;
+  final IconData iconData;
+  final int color;
 
   SuggestionCategory({
     required this.id,
     required this.name,
-    required this.icon,
+    required this.iconData,
     required this.color,
   });
 }
@@ -34,49 +36,51 @@ final _categories = [
   SuggestionCategory(
     id: '1',
     name: 'Books',
-    icon: Icons.book,
-    color: '#3498db',
+    iconData: Icons.book,
+    color: 0xFF3498DB,
   ),
   SuggestionCategory(
     id: '2',
     name: 'Movies & TV Shows',
-    icon: Icons.movie,
-    color: '#e74c3c',
+    iconData: Icons.movie,
+    color: 0xFFE74C3C,
   ),
   SuggestionCategory(
     id: '3',
     name: 'Recipes',
-    icon: Icons.restaurant_menu,
-    color: '#2ecc71',
+    iconData: Icons.restaurant_menu,
+    color: 0xFF2ECC71,
   ),
   SuggestionCategory(
     id: '4',
     name: 'Board Games',
-    icon: Icons.games,
-    color: '#f39c12',
+    iconData: Icons.games,
+    color: 0xFFF39C12,
   ),
   SuggestionCategory(
     id: '5',
     name: 'Music',
-    icon: Icons.music_note,
-    color: '#9b59b6',
+    iconData: Icons.music_note,
+    color: 0xFF9B59B6,
   ),
   SuggestionCategory(
     id: '6',
     name: 'Video Games',
-    icon: Icons.videogame_asset,
-    color: '#f1c40f',
+    iconData: Icons.videogame_asset,
+    color: 0xFFF1C40F,
   ),
   SuggestionCategory(
     id: '7',
     name: 'Online Channels & Profiles',
-    icon: Icons.language,
-    color: '#e91e63',
+    iconData: Icons.language,
+    color: 0xFFE91E63,
   ),
   SuggestionCategory(
     id: '8',
     name: 'Outras',
-    icon: Icons.more_horiz,
-    color: '#CCCCCC',
-  )
+    iconData: Icons.more_horiz,
+    color: 0xFFCCCCCC,
+  ),
 ];
+
+
