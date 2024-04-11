@@ -59,7 +59,7 @@ class MockSuggestionRepository extends _i1.Mock
   }
 
   @override
-  _i4.Stream<List<_i5.Suggestion>> getSuggestionsStream() =>
+  _i4.Stream<List<_i5.Suggestion>> getSuggestionsByCategory() =>
       (super.noSuchMethod(
         Invocation.method(
           #getSuggestionsStream,

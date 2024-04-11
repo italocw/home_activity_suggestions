@@ -133,7 +133,7 @@ void main() {
           currentUser: mockDomainUser,
           suggestionConverter: mockSuggestionConverter);
 
-      suggestionRepository.getSuggestionsStream().listen((suggestionsSnapshot) {
+      suggestionRepository.getSuggestionsByCategory().listen((suggestionsSnapshot) {
         expect(suggestionsSnapshot, mocksSuggestionsSnapshotList);
       });
     }));

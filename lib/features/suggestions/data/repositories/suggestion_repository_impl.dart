@@ -14,7 +14,6 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
   final SuggestionDataSource _dataSource;
   final DomainUser _currentUser;
   final SuggestionConverter _suggestionConverter;
-  late final StreamController<List<Suggestion>> _streamController;
 
   SuggestionRepositoryImpl(
       {required SuggestionDataSource dataSource,
@@ -22,31 +21,22 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
       required SuggestionConverter suggestionConverter})
       : _dataSource = dataSource,
         _currentUser = currentUser,
-        _suggestionConverter = suggestionConverter {
-    setSuggestionsStream();
-  }
+        _suggestionConverter = suggestionConverter ;
 
-  void setSuggestionsStream() {
-    _streamController = StreamController<List<Suggestion>>();
 
-    _dataSource.snapshots.listen((snapshot) {
-      List<Suggestion> suggestions = [];
-
+  @override
+  List<Suggestion> getSuggestionsByCategory({required String categoryId}) {
+    List<Suggestion> suggestions=[];
+    _dataSource
+        .getSnapshotsByCategory(categoryId: categoryId)
+        .listen((snapshot) {
       suggestions = snapshot.docs
           .map((documentSnapshot) =>
               _suggestionConverter.fromDocumentSnapshot(documentSnapshot))
           .toList();
+      });
 
-
-      _streamController.add(suggestions);
-      _streamController.close();
-    });
-
-  }
-
-  @override
-  Stream<List<Suggestion>> getSuggestionsStream() {
-    return _streamController.stream;
+    return suggestions;
   }
 
   @override

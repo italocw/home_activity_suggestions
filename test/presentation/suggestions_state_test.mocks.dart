@@ -16,7 +16,7 @@ import 'package:home_activity_suggestions/features/suggestions/domain/usecases/d
     as _i9;
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion.dart'
     as _i6;
-import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion_stream.dart'
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestions_by_category.dart'
     as _i10;
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/update_suggestion.dart'
     as _i11;
@@ -125,7 +125,7 @@ class MockDeleteSuggestion extends _i1.Mock implements _i9.DeleteSuggestion {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetSuggestionStream extends _i1.Mock
-    implements _i10.GetSuggestionStream {
+    implements _i10.GetSuggestionsByCategory {
   MockGetSuggestionStream() {
     _i1.throwOnMissingStub(this);
   }

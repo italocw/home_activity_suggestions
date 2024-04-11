@@ -4,9 +4,9 @@ import 'package:home_activity_suggestions/features/suggestions/domain/entities/s
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/add_suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/delete_suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion_stream.dart';
+import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestions_by_category.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/update_suggestion.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/suggestions_state.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/suggestions_list_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -16,7 +16,7 @@ import 'suggestions_state_test.mocks.dart';
   AddSuggestion,
   GetSuggestion,
   DeleteSuggestion,
-  GetSuggestionStream,
+  GetSuggestionsByCategory,
   UpdateSuggestion,
   Suggestion,
   Success,
@@ -43,7 +43,7 @@ void main() {
         getSuggestion: mockGetSuggestion,
         updateSuggestion: mockUpdateSuggestion,
         deleteSuggestion: mockDeleteSuggestion,
-        getSuggestionStream: mockGetSuggestionStream);
+        getSuggestionsByCategory: mockGetSuggestionStream);
     return suggestionListNotifier;
   }
 
