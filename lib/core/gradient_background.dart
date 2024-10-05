@@ -13,7 +13,7 @@ class GradientBackground extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [ colorScheme.background ],
+              colors: [colorScheme.surface],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

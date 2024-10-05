@@ -9,7 +9,7 @@ class CategoryName extends StatelessWidget {
     return Text(
       name,
       style: Theme.of(context).textTheme.titleMedium,
-      textAlign: TextAlign.start,
+      textAlign: TextAlign.center,
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:home_activity_suggestions/features/authentication/domain/usecases/create_account.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -45,20 +44,19 @@ void main() {
       expect(result, mockSuccess);
     }));
 
-    test('Should call repository sign in method with failed result',
-        (() async {
-          when(mockAuthenticationRepository.signIn(
+    test('Should call repository sign in method with failed result', (() async {
+      when(mockAuthenticationRepository.signIn(
               email: testEmail, password: testPassword))
-              .thenAnswer((_) async => mockFailure);
+          .thenAnswer((_) async => mockFailure);
 
-          signIn = SignIn(authenticationRepository: mockAuthenticationRepository);
+      signIn = SignIn(authenticationRepository: mockAuthenticationRepository);
 
-          final result = await signIn(email: testEmail, password: testPassword);
+      final result = await signIn(email: testEmail, password: testPassword);
 
-          verify(await mockAuthenticationRepository.signIn(
+      verify(await mockAuthenticationRepository.signIn(
               email: testEmail, password: testPassword))
-              .called(1);
-          expect(result, mockFailure);
+          .called(1);
+      expect(result, mockFailure);
     }));
   });
 }

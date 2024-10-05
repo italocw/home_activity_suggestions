@@ -36,5 +36,12 @@
     "music": "Música",
     "video_games": "Jogos eletrônicos",
     "online_channels_and_profiles": "Canais online e perfis",
-    "others": "Outras"
+    "others": "Outras",
+    "add_item": "Adicionar item",
+    "category": "Categoria",    
+    "link": "Link",    
+    "description": "Descrição",    
+    "title": "Título",
+    "add_suggestion": "Adicionar sugestão",
+    "no_suggestions_found_in_this_category": "Nenhuma sugestão encontrada nessa categoria"
 }

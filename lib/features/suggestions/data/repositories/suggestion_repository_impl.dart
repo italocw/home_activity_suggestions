@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/suggestions/data/datasource/suggestion_datasource.dart';
@@ -21,28 +21,27 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
       required SuggestionConverter suggestionConverter})
       : _dataSource = dataSource,
         _currentUser = currentUser,
-        _suggestionConverter = suggestionConverter ;
-
+        _suggestionConverter = suggestionConverter;
 
   @override
-  List<Suggestion> getSuggestionsByCategory({required String categoryId}) {
-    List<Suggestion> suggestions=[];
-    _dataSource
+  Stream<List<Suggestion>> getSuggestionsByCategory(
+      {required String categoryId}) {
+    log("Entrou na get suggestions com category id = $categoryId");
+
+    return _dataSource
         .getSnapshotsByCategory(categoryId: categoryId)
-        .listen((snapshot) {
-      suggestions = snapshot.docs
+        .map((snapshot) {
+      return snapshot.docs
           .map((documentSnapshot) =>
               _suggestionConverter.fromDocumentSnapshot(documentSnapshot))
           .toList();
-      });
-
-    return suggestions;
+    });
   }
 
   @override
-  Future<void> addSuggestion(Suggestion suggestion) async {
+  void addSuggestion(Suggestion suggestion) async {
     final suggestionMap = _suggestionMapWithUId(suggestion);
-    await _dataSource.add(suggestionMap);
+    _dataSource.add(suggestionMap);
   }
 
   get _currentUserID => _currentUser.id;
@@ -54,13 +53,12 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
   }
 
   @override
-  Future<void> deleteSuggestion(String id) async =>
-      await _dataSource.delete(id);
+  void deleteSuggestion(String id) async => await _dataSource.delete(id);
 
   @override
-  Future<void> updateSuggestion(Suggestion suggestion) async {
+  void updateSuggestion(Suggestion suggestion) async {
     final suggestionMap = _suggestionMapWithUId(suggestion);
-    await _dataSource.update(suggestion.id!, suggestionMap);
+    await _dataSource.update(_currentUserID, suggestionMap);
   }
 
   @override

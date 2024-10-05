@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion_category.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/components/atoms/category_icon.dart';
 
-import '../atoms/category_name.dart';
 import '../molecules/category_item.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -13,7 +10,8 @@ class CategoriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return GridView.count(
+      crossAxisCount: 2,
       padding: const EdgeInsets.all(8),
       children: categories
           .map(

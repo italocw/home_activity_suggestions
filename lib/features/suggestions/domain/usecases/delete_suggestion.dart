@@ -3,6 +3,7 @@ import 'package:home_activity_suggestions/features/suggestions/domain/repositori
 class DeleteSuggestion {
   final SuggestionRepository _repository;
 
-  DeleteSuggestion({required SuggestionRepository suggestionRepository}) : _repository = suggestionRepository;
-  Future<void> call(String id) => _repository.deleteSuggestion(id);
+  DeleteSuggestion({required SuggestionRepository suggestionRepository})
+      : _repository = suggestionRepository;
+  void call(String id) => _repository.deleteSuggestion(id);
 }

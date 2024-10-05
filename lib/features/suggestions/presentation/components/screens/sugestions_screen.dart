@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/components/templates/categories_template.dart';
 
 import '../templates/suggestions_template.dart';
 
@@ -8,7 +7,6 @@ class SuggestionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      SuggestionsTemplate();
+    return const SuggestionsTemplate();
   }
 }

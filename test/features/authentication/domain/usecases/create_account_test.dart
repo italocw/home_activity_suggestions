@@ -3,7 +3,6 @@ import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/create_account.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion_category.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -16,7 +15,7 @@ void main() {
   final MockSuccess<DomainUser> mockSuccess = MockSuccess();
   final MockFailure<DomainUser> mockFailure = MockFailure();
   final MockDomainUser mockDomainUser = MockDomainUser();
-  late  CreateAccount createAccount;
+  late CreateAccount createAccount;
   const String testEmail = 'email';
   const String testPassword = 'password';
 
@@ -28,11 +27,9 @@ void main() {
       when(mockFailure.exception).thenReturn(Exception());
 
       provideDummy<Result<DomainUser>>(mockSuccess);
-
     });
     test('Should call repository create account method with successful result',
         (() async {
-
       when(mockAuthenticationRepository.createAccount(
               email: testEmail, password: testPassword))
           .thenAnswer((_) async => mockSuccess);
@@ -49,22 +46,22 @@ void main() {
       expect(result, mockSuccess);
     }));
 
-      test('Should call repository create account method with failed result',
+    test('Should call repository create account method with failed result',
         (() async {
-          when(mockAuthenticationRepository.createAccount(
+      when(mockAuthenticationRepository.createAccount(
               email: testEmail, password: testPassword))
-              .thenAnswer((_) async => mockFailure);
+          .thenAnswer((_) async => mockFailure);
 
-          createAccount =
-              CreateAccount(authenticationRepository: mockAuthenticationRepository);
+      createAccount =
+          CreateAccount(authenticationRepository: mockAuthenticationRepository);
 
-          final result =
+      final result =
           await createAccount(email: testEmail, password: testPassword);
 
-          verify(await mockAuthenticationRepository.createAccount(
+      verify(await mockAuthenticationRepository.createAccount(
               email: testEmail, password: testPassword))
-              .called(1);
-          expect(result, mockFailure);
+          .called(1);
+      expect(result, mockFailure);
     }));
   });
 }

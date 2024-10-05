@@ -1,11 +1,7 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_message_builder.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 
 import '../../../../core/providers.dart';
-import '../../data/firebase_auth_error_codes.dart';
-import '../../domain/entities/auth_screen_data.dart';
+import '../auth_screen_data.dart';
 import 'auth_screen_mode_provider.dart';
 
 final StateProvider<AuthOrganismDynamicData> authScreenDataProvider =
@@ -31,12 +27,10 @@ final StateProvider<AuthOrganismDynamicData> authScreenDataProvider =
       break;
   }
 
-
   return AuthOrganismDynamicData(
-      topMessage: topMessage,
-      submitButtonText: submitButtonText,
-      changeScreenModeButtonText: changeScreenModeButtonText,
-      authMode: authMode,
-   );
+    topMessage: topMessage,
+    submitButtonText: submitButtonText,
+    changeScreenModeButtonText: changeScreenModeButtonText,
+    authMode: authMode,
+  );
 });
-

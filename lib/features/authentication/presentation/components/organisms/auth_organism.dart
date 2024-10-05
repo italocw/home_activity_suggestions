@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_input_fields_providers.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_error_message_builder.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/components/atoms/auth_text.dart';
-import 'package:home_activity_suggestions/features/authentication/presentation/components/atoms/generic_button.dart';
+import 'package:home_activity_suggestions/core/components/atoms/generic_button.dart';
 import 'package:home_activity_suggestions/features/authentication/presentation/components/molecules/credential_input_fields_molecule.dart';
 
 class AuthOrganism extends ConsumerWidget {
@@ -16,25 +15,23 @@ class AuthOrganism extends ConsumerWidget {
     final screenNotifier = ref.watch(authScreenNotifierProvider.notifier);
     final screenData = ref.watch(authScreenNotifierProvider);
 
-
     void onSubmitButtonPressed() async {
       var formState = formKey.currentState!;
       final isValid = formState.validate();
 
-      String? submissionError ;
+      String? submissionError;
       if (isValid) {
         formState.save();
         final email = ref.read(emailProvider);
         final password = ref.read(passwordProvider);
 
-
-
-        submissionError= await    screenNotifier.submitAuth(email: email, password: password);
+        submissionError =
+            await screenNotifier.submitAuth(email: email, password: password);
       }
 
       if (context.mounted) {
-        ScaffoldMessengerState scaffoldMessengerState = ScaffoldMessenger.of(
-            context);
+        ScaffoldMessengerState scaffoldMessengerState =
+            ScaffoldMessenger.of(context);
         scaffoldMessengerState.clearSnackBars();
 
         if (submissionError != null) {

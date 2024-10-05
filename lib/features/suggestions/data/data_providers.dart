@@ -1,7 +1,5 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_suggestions/features/authentication/data/data_providers.dart';
 
@@ -20,22 +18,22 @@ final Provider<FirebaseAuth> firebaseAuthProvider = Provider((ref) {
 
 final Provider<SuggestionDataSource> suggestionDatasourceProvider =
     Provider((ref) {
-  final firebaseFirestore = ref.read(firebaseFirestoreProvider);
+  final firebaseFirestore = ref.watch(firebaseFirestoreProvider);
   return SuggestionDataSource(firebaseFirestore: firebaseFirestore);
 });
 
-
 final Provider<SuggestionConverter> suggestionConverterProvider =
     Provider((ref) {
-      final suggestionCategoryLocator= ref.read(suggestionCategoryLocatorProvider);
-  return SuggestionConverter(categoryLocator:suggestionCategoryLocator);
+  final suggestionCategoryLocator = ref.read(suggestionCategoryLocatorProvider);
+  return SuggestionConverter(categoryLocator: suggestionCategoryLocator);
 });
 
 final Provider<SuggestionRepositoryImpl> suggestionRepositoryProvider =
     Provider((ref) {
   final suggestionConverter = ref.read(suggestionConverterProvider);
-  final currentDomainUser = ref.read(authRepositoryProvider).currentDomainUser!;
-  final suggestionDatasource = ref.read(suggestionDatasourceProvider);
+  final currentDomainUser =
+      ref.watch(authRepositoryProvider).currentDomainUser!;
+  final suggestionDatasource = ref.watch(suggestionDatasourceProvider);
   return SuggestionRepositoryImpl(
       dataSource: suggestionDatasource,
       currentUser: currentDomainUser,

@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion_category.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/add_suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/delete_suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion.dart';
@@ -10,13 +11,13 @@ import 'package:home_activity_suggestions/features/suggestions/domain/usecases/u
 
 import '../../../core/data/result.dart';
 
-final Provider<SuggestionListNotifier> suggestionsNotifierProvider = Provider((ref) {
+final suggestionsNotifierProvider = StateNotifierProvider((ref) {
   final addSuggestion = ref.read(addSuggestionProvider);
   final getSuggestion = ref.read(getSuggestionProvider);
   final deleteSuggestion = ref.read(deleteSuggestionProvider);
   final updateSuggestion = ref.read(updateSuggestionsProvider);
   final getSuggestionsByCategory = ref.watch(getSuggestionsByCategoryProvider);
-
+  log("Recarregou o suggestions notifier provider");
   return SuggestionListNotifier(
       addSuggestion: addSuggestion,
       getSuggestion: getSuggestion,
@@ -51,7 +52,8 @@ class SuggestionListNotifier extends StateNotifier<List<Suggestion>> {
   Future<Result<Suggestion>> getSuggestion(String suggestionId) async =>
       _getSuggestion(suggestionId);
 
-  List<Suggestion> getSuggestionsByCategory() => _getSuggestionsByCategory();
+  Stream<List<Suggestion>> getSuggestionsByCategory() =>
+      _getSuggestionsByCategory();
 
   Future<void> updateSuggestion(Suggestion suggestion) async =>
       _updateSuggestion(suggestion);

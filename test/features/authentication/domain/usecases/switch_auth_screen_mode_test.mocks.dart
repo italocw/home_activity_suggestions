@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart' as _i3;
-import 'package:home_activity_suggestions/features/authentication/domain/entities/auth_screen_data.dart'
+import 'package:home_activity_suggestions/features/authentication/presentation/auth_screen_data.dart'
     as _i5;
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_mode_provider.dart'
     as _i2;

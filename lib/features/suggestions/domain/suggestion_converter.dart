@@ -22,14 +22,11 @@ class SuggestionConverter {
         suggestionDocumentSnapshot.data() as Map<String, dynamic>;
     final title = suggestionData[SuggestionMapKeys.title]!;
     final description = suggestionData[SuggestionMapKeys.description]!;
-    final category =
-        _categoryLocator.locateCategoryById(id: suggestionData[SuggestionMapKeys.categoryId]);
+    final category = _categoryLocator.locateCategoryById(
+        id: suggestionData[SuggestionMapKeys.categoryId]);
 
     return Suggestion(
-        id: suggestionDocumentSnapshot.id,
-        title: title,
-        description: description,
-        category: category);
+        title: title, description: description, category: category);
   }
 /*
   List<Suggestion> fromQuerySnapshotToSuggestionList(

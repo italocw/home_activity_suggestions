@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 
 import '../../../../core/data/result.dart';
 import '../entities/domain_user.dart';
@@ -12,7 +10,6 @@ class SignIn {
       : _authenticationRepository = authenticationRepository;
 
   Future<Result<DomainUser>> call(
-      {required String email, required String password})  =>
-       _authenticationRepository.signIn(email: email, password: password);
-
+          {required String email, required String password}) =>
+      _authenticationRepository.signIn(email: email, password: password);
 }

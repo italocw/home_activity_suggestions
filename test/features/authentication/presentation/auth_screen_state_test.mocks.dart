@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:home_activity_suggestions/core/data/result.dart' as _i4;
-import 'package:home_activity_suggestions/features/authentication/domain/entities/auth_screen_data.dart'
+import 'package:home_activity_suggestions/features/authentication/presentation/auth_screen_data.dart'
     as _i10;
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart'
     as _i5;

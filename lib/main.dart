@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,7 +31,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: 'Sugestões de atividades caseiras',
-      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme  ),
+      theme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: ref.watch(homeScreenProvider),

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:home_activity_suggestions/core/data/result.dart';
-import 'package:home_activity_suggestions/features/authentication/domain/entities/auth_screen_data.dart';
+import 'package:home_activity_suggestions/features/authentication/presentation/auth_screen_data.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/entities/domain_user.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/create_account.dart';
 import 'package:home_activity_suggestions/features/authentication/domain/usecases/logout.dart';
@@ -10,7 +10,6 @@ import 'package:home_activity_suggestions/features/authentication/presentation/p
 import 'package:home_activity_suggestions/features/authentication/presentation/providers/auth_screen_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 
 import 'auth_screen_state_test.mocks.dart';
 
@@ -23,14 +22,16 @@ import 'auth_screen_state_test.mocks.dart';
   Success,
   Failure,
   AuthOrganismDynamicData,
-  AuthScreenErrorMessageBuilder])
+  AuthScreenErrorMessageBuilder
+])
 void main() {
   final MockSuccess<DomainUser> mockSuccess = MockSuccess();
   final MockFailure<DomainUser> mockFailure = MockFailure();
   final MockCreateAccount mockCreateAccount = MockCreateAccount();
   final MockLogout mockLogout = MockLogout();
   final MockSignIn mockSignIn = MockSignIn();
-  final  MockAuthScreenErrorMessageBuilder mockAuthScreenErrorMessageBuilder= MockAuthScreenErrorMessageBuilder();
+  final MockAuthScreenErrorMessageBuilder mockAuthScreenErrorMessageBuilder =
+      MockAuthScreenErrorMessageBuilder();
   final MockSwitchAuthScreenMode mockSwitchAuthScreenMode =
       MockSwitchAuthScreenMode();
   final MockDomainUser mockDomainUser = MockDomainUser();
@@ -46,7 +47,8 @@ void main() {
         signIn: mockSignIn,
         createAccount: mockCreateAccount,
         logout: mockLogout,
-        switchAuthScreenMode: mockSwitchAuthScreenMode, errorMessageBuilder:  mockAuthScreenErrorMessageBuilder);
+        switchAuthScreenMode: mockSwitchAuthScreenMode,
+        errorMessageBuilder: mockAuthScreenErrorMessageBuilder);
   }
 
   group('AuthScreenStateNotifier tests', () {
@@ -57,7 +59,6 @@ void main() {
       when(mockFailure.exception).thenReturn(Exception());
 
       provideDummy<Result<DomainUser>>(mockSuccess);
-
     });
 
     test(
@@ -66,55 +67,48 @@ void main() {
       when(mockAuthOrganismDynamicData.authMode)
           .thenReturn(AuthMode.createAccount);
 
-      when(mockCreateAccount(email: testEmail, password: testPassword)).thenAnswer((_) async => mockSuccess);
+      when(mockCreateAccount(email: testEmail, password: testPassword))
+          .thenAnswer((_) async => mockSuccess);
 
       initializeAuthScreenStateNotifier();
 
-       authScreenStateNotifier.submitAuth(
+      authScreenStateNotifier.submitAuth(
           email: testEmail, password: testPassword);
 
       verify(await mockCreateAccount(email: testEmail, password: testPassword))
           .called(1);
     }));
 
-    test(
-        'Should call sign in usecase when is on sign in auth screen mode',
+    test('Should call sign in usecase when is on sign in auth screen mode',
         (() async {
-          when(mockAuthOrganismDynamicData.authMode)
-              .thenReturn(AuthMode.signIn);
+      when(mockAuthOrganismDynamicData.authMode).thenReturn(AuthMode.signIn);
 
-          when(mockSignIn(email: testEmail, password: testPassword)).thenAnswer((_) async => mockSuccess);
+      when(mockSignIn(email: testEmail, password: testPassword))
+          .thenAnswer((_) async => mockSuccess);
 
-          initializeAuthScreenStateNotifier();
+      initializeAuthScreenStateNotifier();
 
-           authScreenStateNotifier.submitAuth(
-              email: testEmail, password: testPassword);
+      authScreenStateNotifier.submitAuth(
+          email: testEmail, password: testPassword);
 
-          verify(await mockSignIn(email: testEmail, password: testPassword))
-              .called(1);
-        }));
+      verify(await mockSignIn(email: testEmail, password: testPassword))
+          .called(1);
+    }));
 
-    test(
-        'Should call logout usecase',
-        (() async {
-          initializeAuthScreenStateNotifier();
+    test('Should call logout usecase', (() async {
+      initializeAuthScreenStateNotifier();
 
-          await authScreenStateNotifier.logout();
+      await authScreenStateNotifier.logout();
 
-          verify(await mockLogout())
-              .called(1);
-        }));
+      verify(await mockLogout()).called(1);
+    }));
 
-    test(
-        'Should call switch auth screen mode usecase',
-        (()  {
-          initializeAuthScreenStateNotifier();
+    test('Should call switch auth screen mode usecase', (() {
+      initializeAuthScreenStateNotifier();
 
-           authScreenStateNotifier.switchAuthScreenMode();
+      authScreenStateNotifier.switchAuthScreenMode();
 
-          verify( mockSwitchAuthScreenMode())
-              .called(1);
-        }));
+      verify(mockSwitchAuthScreenMode()).called(1);
+    }));
   });
-
 }

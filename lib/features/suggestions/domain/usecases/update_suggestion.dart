@@ -4,8 +4,8 @@ import 'package:home_activity_suggestions/features/suggestions/domain/repositori
 class UpdateSuggestion {
   final SuggestionRepository _repository;
 
-  UpdateSuggestion({required SuggestionRepository suggestionRepository}) : _repository = suggestionRepository;
+  UpdateSuggestion({required SuggestionRepository suggestionRepository})
+      : _repository = suggestionRepository;
 
-  Future<void> call(Suggestion suggestion) =>
-      _repository.updateSuggestion(suggestion);
+  void call(Suggestion suggestion) => _repository.updateSuggestion(suggestion);
 }

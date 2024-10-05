@@ -6,7 +6,6 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      CategoriesTemplate();
+    return const CategoriesTemplate();
   }
 }

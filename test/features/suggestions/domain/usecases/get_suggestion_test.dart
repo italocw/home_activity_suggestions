@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:home_activity_suggestions/core/data/result.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/entities/suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/repositories/suggestion_repository.dart';
-import 'package:home_activity_suggestions/features/suggestions/domain/usecases/delete_suggestion.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/get_suggestion.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -46,14 +45,14 @@ void main() {
     test(
         'Should return expected failure result after calling the get suggestion repository method',
         (() async {
-          getSuggestion =
-              GetSuggestion(suggestionRepository: mockSuggestionRepository);
+      getSuggestion =
+          GetSuggestion(suggestionRepository: mockSuggestionRepository);
 
-          when(mockSuggestionRepository.getSuggestionById(suggestionId))
-              .thenAnswer((_) async => mockFailure);
-          final result = await getSuggestion(suggestionId);
+      when(mockSuggestionRepository.getSuggestionById(suggestionId))
+          .thenAnswer((_) async => mockFailure);
+      final result = await getSuggestion(suggestionId);
 
-          expect(result, mockFailure);
-        }));
+      expect(result, mockFailure);
+    }));
   });
 }
