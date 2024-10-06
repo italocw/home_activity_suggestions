@@ -43,5 +43,7 @@
     "description": "Descrição",    
     "title": "Título",
     "add_suggestion": "Adicionar sugestão",
-    "no_suggestions_found_in_this_category": "Nenhuma sugestão encontrada nessa categoria"
+    "no_suggestions_found_in_this_category": "Nenhuma sugestão encontrada nessa categoria",
+    "loading": "Carregando",
+    "an_error_has_occurred_when_try_to_load": "Ocorreu um erro ao tentar carregar"
 }

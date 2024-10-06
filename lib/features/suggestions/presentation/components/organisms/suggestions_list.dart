@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_activity_suggestions/core/components/atoms/centered_progress_indicator.dart';
+import 'package:home_activity_suggestions/core/components/atoms/error_label.dart';
 import 'package:home_activity_suggestions/core/providers.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/components/atoms/no_suggestions_found_label.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/components/molecules/suggestion_item.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/selected_category_state.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/selected_suggestion_state.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/suggestions_list_state.dart';
 
 import '../../../domain/entities/suggestion.dart';
@@ -21,26 +24,22 @@ class SuggestionsList extends ConsumerWidget {
     final appLocalizations = ref.read(appLocalizationsProvider);
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8),
       child: StreamBuilder<List<Suggestion>>(
         stream: suggestionsStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const CenteredProgressIndicator();
           }
-
           if (snapshot.hasError) {
-            return Text('Erro: ${snapshot.error}');
+            return const ErrorLabel();
           }
-
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Text(
-              appLocalizations.no_suggestions_found_in_this_category,
-              textAlign: TextAlign.center,
-            );
+            return const NoSuggestionsFoundLabel();
           }
 
           final suggestions = snapshot.data!;
+
           return PopScope(
             onPopInvokedWithResult: (bool didPop, Object? result) {
               if (didPop) {
@@ -52,7 +51,7 @@ class SuggestionsList extends ConsumerWidget {
               itemCount: suggestions.length, // Quantidade de itens na lista
               itemBuilder: (context, index) {
                 final currentSuggestion = suggestions[index];
-                return SuggestionItem(currentSuggestion: currentSuggestion);
+                return SuggestionItem(suggestion: currentSuggestion);
               },
             ),
           );

@@ -8,7 +8,7 @@ import 'package:home_activity_suggestions/features/suggestions/domain/entities/s
 import 'package:home_activity_suggestions/features/suggestions/presentation/add_suggestion_state.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/add_suggestions_input_field_providers.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/components/molecules/add_suggestion_input_fields_molecule.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/selected_category_state.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/selected_suggestion_state.dart';
 
 class AddSuggestionScreenBody extends ConsumerWidget {
   const AddSuggestionScreenBody({super.key});

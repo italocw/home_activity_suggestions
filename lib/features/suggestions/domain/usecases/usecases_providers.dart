@@ -10,7 +10,7 @@ import 'package:home_activity_suggestions/features/suggestions/domain/usecases/g
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/list_categories.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/open_category_screen.dart';
 import 'package:home_activity_suggestions/features/suggestions/domain/usecases/update_suggestion.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/selected_category_state.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/selected_suggestion_state.dart';
 
 final Provider<AddSuggestion> addSuggestionProvider = Provider((ref) {
   final repository = ref.watch(suggestionRepositoryProvider);

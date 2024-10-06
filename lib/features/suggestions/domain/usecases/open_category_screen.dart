@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:home_activity_suggestions/features/suggestions/presentation/components/screens/sugestions_screen.dart';
-import 'package:home_activity_suggestions/features/suggestions/presentation/selected_category_state.dart';
+import 'package:home_activity_suggestions/features/suggestions/presentation/selected_suggestion_state.dart';
 
 import '../entities/suggestion_category.dart';
 

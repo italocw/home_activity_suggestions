@@ -17,7 +17,6 @@ final suggestionsNotifierProvider = StateNotifierProvider((ref) {
   final deleteSuggestion = ref.read(deleteSuggestionProvider);
   final updateSuggestion = ref.read(updateSuggestionsProvider);
   final getSuggestionsByCategory = ref.watch(getSuggestionsByCategoryProvider);
-  log("Recarregou o suggestions notifier provider");
   return SuggestionListNotifier(
       addSuggestion: addSuggestion,
       getSuggestion: getSuggestion,

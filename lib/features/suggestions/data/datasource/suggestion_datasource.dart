@@ -7,14 +7,19 @@ class SuggestionDataSource {
 
   Stream<QuerySnapshot<Object?>> getSnapshotsByCategory(
           {required String categoryId}) =>
-      _collection.where('categoryId', isEqualTo: categoryId).snapshots();
+      _collection
+          .where('categoryId', isEqualTo: categoryId)
+          .orderBy('createdAt')
+          .snapshots();
 
   CollectionReference get _collection =>
       firebaseFirestore.collection('suggestions');
 
   Future<DocumentReference<Object?>> add(
-          Map<String, dynamic> suggestion) async =>
-      await _collection.add(suggestion);
+      Map<String, dynamic> suggestion) async {
+    suggestion['createdAt'] = DateTime.now().millisecondsSinceEpoch;
+    return await _collection.add(suggestion);
+  }
 
   Future<DocumentSnapshot<Object?>> getById(String id) async =>
       await _collection.doc(id).get();
